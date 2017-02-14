@@ -1,14 +1,28 @@
 import {Component, OnInit} from "@angular/core";
 import {LoginService} from "./login.service";
+import {User} from "../common/login.model";
+import {Observable} from "rxjs";
 
 @Component({
-  moduleId: "login",
   selector: 'simple-login',
-  templateUrl: 'login.component.html'
+  templateUrl: './app/login/login.component.html',
+  styleUrls: ['./app/login/login.component.css'],
+  providers: [LoginService]
 })
 export class SimpleLoginComponent implements OnInit {
-  constructor(private loginService: LoginService) {
 
+  user: User = {username: "username", password: "password"};
+
+  constructor(private loginService: LoginService) {
+  }
+
+  onLogin() {
+    this.loginService.login(user)
+      .subscribe(res=>console.log(res))
+      .catch(error => {
+        console.log(error);
+        return Observable.of<User>({});
+      })
   }
 
   ngOnInit() {

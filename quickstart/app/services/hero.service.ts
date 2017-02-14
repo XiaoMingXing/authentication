@@ -19,7 +19,7 @@ export class HeroService {
       .toPromise()
       //response => response.json().data as Hero
       .then(function (response) {
-      debugger;
+        debugger;
         console.log(response.json());
       })
       .catch(this.handleError);

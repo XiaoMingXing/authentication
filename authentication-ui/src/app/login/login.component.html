@@ -1,0 +1,16 @@
+<div id="login-container">
+  <form>
+    <fieldset>
+      <label for="user">User:</label>
+      <input class="form-control" id="user" type="text" name="username" [(ngModel)]="user.username"/>
+      <br>
+      <label for="password">Password:</label>
+      <input class="form-control" id="password" type="password" name="password" [(ngModel)]="user.password"/>
+      <br>
+      <button class="btn btn-primary" type="submit" (click)="onLogin()">Log In</button>
+      <button class="btn btn-primary" type="submit" (click)="onSignup()">Sign Up</button>
+    </fieldset>
+  </form>
+
+  <a href="#" (click)="onGoogleLogin()">Log In with Google</a><br/>
+</div>
