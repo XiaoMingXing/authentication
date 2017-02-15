@@ -1,7 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {LoginService} from "./login.service";
 import {User} from "../common/login.model";
-import {Observable} from "rxjs";
 
 @Component({
   selector: 'simple-login',
@@ -17,12 +16,11 @@ export class SimpleLoginComponent implements OnInit {
   }
 
   onLogin() {
-    this.loginService.login(user)
-      .subscribe(res=>console.log(res))
-      .catch(error => {
-        console.log(error);
-        return Observable.of<User>({});
-      })
+    this.loginService.login(this.user)
+      .subscribe(res=> {
+        debugger;
+        console.log(res, "success");
+      });
   }
 
   ngOnInit() {

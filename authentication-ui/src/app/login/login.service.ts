@@ -4,6 +4,8 @@ import {User} from "../common/login.model";
 import {CONSTANTS} from "../common/constants";
 import {Observable} from "rxjs";
 
+import "rxjs/add/operator/map";
+
 @Injectable()
 export class LoginService {
 
@@ -14,7 +16,7 @@ export class LoginService {
 
   login(user: User): Observable<User> {
     return this.http
-      .post(CONSTANTS.ServiceUrls.authUrl, JSON.stringify(user), {headers: this.headers})
+      .post(CONSTANTS.ServiceUrls.authUrl, user, {headers: this.headers})
       .map(response => response.json().data as User);
   }
 }
