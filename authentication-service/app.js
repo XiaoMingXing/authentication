@@ -5,9 +5,11 @@ var http = require('http');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var db = require('./models/db');
 
 var index = require('./routes/index');
 var auth = require('./routes/auth');
+var users = require('./routes/users');
 
 var app = express();
 app.set('port', process.env.PORT || 8080);
@@ -30,8 +32,10 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', index);
-app.use('/api/v1/auth', auth);
+var API_PREFIX = '/api/v1';
+app.use(API_PREFIX + '/dashboard', index);
+app.use(API_PREFIX + '/auth', auth);
+app.use(API_PREFIX + '/users', users);
 
 http.createServer(app).listen(8080, function () {
     console.log('Express server listening on port ' + 8080);
