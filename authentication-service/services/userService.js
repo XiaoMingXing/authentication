@@ -1,14 +1,13 @@
 var bcrypt = require('bcrypt');
 
 var User = require('../models/user');
-var UserAlreadyExistError = require('../errors/UserAlreadyExistError');
 
 function register(user, callback) {
     var userSchema = new User(user);
     userSchema.findByEmail()
         .then(function (result) {
             if (result) {
-                callback(new UserAlreadyExistError())
+                callback(new Error("email already used!"))
             }
         })
         .then(function () {

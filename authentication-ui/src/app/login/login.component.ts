@@ -10,17 +10,18 @@ import {User} from "../common/login.model";
 })
 export class SimpleLoginComponent implements OnInit {
 
-  user: User = {username: "username", password: "password"};
+  user: User = {username: "920477852@qq.com", password: "password"};
+
+  errorMsg: string = "";
 
   constructor(private loginService: LoginService) {
   }
 
   onLogin() {
     this.loginService.login(this.user)
-      .subscribe(res=> {
-        debugger;
-        console.log(res, "success");
-      });
+      .subscribe(
+        res => this.errorMsg = "success!",
+        err => this.errorMsg = err.statusText);
   }
 
   ngOnInit() {

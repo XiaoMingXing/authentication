@@ -4,13 +4,12 @@ var router = express.Router();
 var userService = require('../services/userService');
 
 /* GET users listing. */
-router.post('/register', function (req, res) {
+router.post('/register', function (req, res, next) {
     userService.register(req.body, function (err, user) {
         if (err) {
-            res.error(err);
-        } else {
-            res.json(user);
+            return next(err);
         }
+        res.json(user);
     })
 
 });
