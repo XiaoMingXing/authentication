@@ -1,10 +1,10 @@
 import {Injectable} from "@angular/core";
 import {Http, Headers} from "@angular/http";
-import {User} from "../common/login.model";
 import {CONSTANTS} from "../common/constants";
 import {Observable} from "rxjs";
 
 import "rxjs/add/operator/map";
+import {User} from "../models/user.model";
 
 @Injectable()
 export class LoginService {

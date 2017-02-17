@@ -1,15 +1,17 @@
 var util = require("util");
 
 function UsernameOrPasswordInvalidError(settings) {
-    settings.message = 'username or password invalid!';
-    settings.status = 403;
-    return new AppError(settings, UsernameOrPasswordInvalidError);
+    return new AppError({message: 'username or password invalid!'}, UsernameOrPasswordInvalidError);
 }
 
-function UserAlreadyExistError(settings) {
-    settings.message = 'user already exist!';
-    settings.status = 403;
-    return new AppError(settings, UserAlreadyExistError);
+function UserAlreadyExistError(email) {
+    var message = `user ${email} already exist!`;
+    return new AppError(message, UserAlreadyExistError);
+}
+
+function UserNotExistError(email) {
+    let [message,status] = [`user ${email} does not exist!`, 500];
+    return new AppError({message, status}, UserNotExistError);
 }
 
 function AppError(settings) {
@@ -25,10 +27,11 @@ function AppError(settings) {
     this.status = (settings.status || 500);
     this.isAppError = true;
 
-    Error.captureStackTrace(this, ( implementationContext || AppError ));
+    Error.captureStackTrace(this, (AppError ));
 }
 
-module.exports = UsernameOrPasswordInvalidError;
-module.exports = UserAlreadyExistError;
-module.exports = AppError;
-
+module.exports = {
+    UsernameOrPasswordInvalidError: UsernameOrPasswordInvalidError,
+    UserAlreadyExistError: UserAlreadyExistError,
+    UserNotExistError: UserNotExistError,
+};

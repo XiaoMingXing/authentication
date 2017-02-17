@@ -1,5 +1,6 @@
 var users = require('../models/user');
 var UsernameOrPasswordInvalidError = require('../errors').UsernameOrPasswordInvalidError;
+var UserNotExistError = require('../errors').UserNotExistError;
 var bcrypt = require('bcrypt');
 
 function usernameAndPasswordAuth(user, callback) {
@@ -7,7 +8,7 @@ function usernameAndPasswordAuth(user, callback) {
 
         if (err) return callback(err);
 
-        if (!existUser) return callback(new Error(user.email + ": is already exist!"));
+        if (!existUser) return callback(new UserNotExistError(user.email));
 
         bcrypt.compare(user.password, existUser.password, function (err, isValid) {
             if (err) {

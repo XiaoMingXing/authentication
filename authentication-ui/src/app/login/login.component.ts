@@ -1,6 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import {LoginService} from "./login.service";
-import {User} from "../common/login.model";
+import {Router} from "@angular/router";
+import {User} from "../models/user.model";
 
 @Component({
   selector: 'simple-login',
@@ -10,18 +11,26 @@ import {User} from "../common/login.model";
 })
 export class SimpleLoginComponent implements OnInit {
 
-  user: User = {username: "920477852@qq.com", password: "password"};
+  user: User = {email: "920477852@qq.com", password: "password"};
 
   errorMsg: string = "";
 
-  constructor(private loginService: LoginService) {
+  constructor(private loginService: LoginService, private router: Router) {
   }
 
   onLogin() {
     this.loginService.login(this.user)
       .subscribe(
-        res => this.errorMsg = "success!",
-        err => this.errorMsg = err.statusText);
+        res => {
+          if (res) {
+            this.router.navigate('/dashboard')
+          }
+        },
+        err => this.handleError(err));
+  }
+
+  private handleError(err: any) {
+    this.errorMsg = typeof err._body === 'object' ? "Network error" : err._body;
   }
 
   ngOnInit() {
