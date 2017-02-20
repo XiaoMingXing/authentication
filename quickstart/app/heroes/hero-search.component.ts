@@ -8,12 +8,12 @@ import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
-import {HeroSearchService} from "../services/hero-search.service";
-import {Hero} from "../models/hero.model";
+import {HeroSearchService} from "./hero-search.service";
+import {Hero} from "./hero.model";
 @Component({
   selector: 'hero-search',
-  templateUrl: '/app/views/hero-search.component.html',
-  styleUrls: [ './app/styles/hero-search.component.css' ],
+  templateUrl: 'app/heroes/hero-search.component.html',
+  styleUrls: [ './app/heroes/hero-search.component.css' ],
   providers: [HeroSearchService]
 })
 export class HeroSearchComponent implements OnInit {

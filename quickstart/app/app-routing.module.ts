@@ -1,30 +1,14 @@
 ///<reference path="components/dashboard.component.ts"/>
 import {Routes, RouterModule} from "@angular/router";
 import {DashboardComponent} from "./components/dashboard.component";
-import {HeroesComponent} from "./components/heroes.component";
-import {HeroDetailComponent} from "./components/hero-detail.component";
 import {NgModule} from "@angular/core";
-import {HeroListComponent} from "./components/hero-list.component";
 import {PageNotFoundComponent} from "./components/not-found.component";
 import {CrisisCenterComponent} from "./components/crisis-center.component";
 
 const routes: Routes = [
   {
-    path: 'heroes',
-    component: HeroesComponent
-  },
-  {
     path: 'dashboard',
     component: DashboardComponent
-  },
-  {
-    path: 'detail/:id',
-    component: HeroDetailComponent
-  },
-  //routing example
-  {
-    path: 'hero-list',
-    component: HeroListComponent
   },
   {
     path: 'crisis-center',
@@ -32,7 +16,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: '/hero-list',
+    redirectTo: '/heroes',
     pathMatch: 'full'
   },
   {
