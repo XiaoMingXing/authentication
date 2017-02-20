@@ -12,6 +12,9 @@ import {HttpModule} from "@angular/http";
 import {InMemoryWebApiModule} from "angular-in-memory-web-api";
 import {InMemoryDataService} from "./mocks/in-memory-data.service";
 import {HeroSearchComponent} from "./components/hero-search.component";
+import {HeroListComponent} from "./components/hero-list.component";
+import {CrisisCenterComponent} from "./components/crisis-center.component";
+import {PageNotFoundComponent} from "./components/not-found.component";
 
 @NgModule({
   imports: [
@@ -25,7 +28,11 @@ import {HeroSearchComponent} from "./components/hero-search.component";
     DashboardComponent,
     HeroDetailComponent,
     HeroesComponent,
-    HeroSearchComponent],
+    HeroSearchComponent,
+    HeroListComponent,
+    CrisisCenterComponent,
+    PageNotFoundComponent
+  ],
   bootstrap: [AppComponent],
   providers: [HeroService, {provide: APP_BASE_HREF, useValue: '/'}]
 })
