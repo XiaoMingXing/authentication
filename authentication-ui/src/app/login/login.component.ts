@@ -21,11 +21,7 @@ export class SimpleLoginComponent implements OnInit {
   onLogin() {
     this.loginService.login(this.user)
       .subscribe(
-        res => {
-          if (res) {
-            this.router.navigate('/dashboard')
-          }
-        },
+        res => this.router.navigate(['/dashboard']),
         err => this.handleError(err));
   }
 
