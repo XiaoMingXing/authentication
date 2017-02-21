@@ -2,8 +2,8 @@
 import {Routes, RouterModule} from "@angular/router";
 import {DashboardComponent} from "./components/dashboard.component";
 import {NgModule} from "@angular/core";
+import {ComposeMessageComponent} from "./components/compose-message.component";
 import {PageNotFoundComponent} from "./components/not-found.component";
-import {CrisisCenterComponent} from "./components/crisis-center.component";
 
 const routes: Routes = [
   {
@@ -11,8 +11,9 @@ const routes: Routes = [
     component: DashboardComponent
   },
   {
-    path: 'crisis-center',
-    component: CrisisCenterComponent
+    path: 'compose',
+    component: ComposeMessageComponent,
+    outlet: 'popup'
   },
   {
     path: '',
