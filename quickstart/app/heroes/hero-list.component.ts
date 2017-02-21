@@ -1,9 +1,8 @@
 import {Component, OnInit} from "@angular/core";
 import {HeroService} from "./hero.service";
-import {Router, ActivatedRoute, Params} from "@angular/router";
+import {Router, ActivatedRoute} from "@angular/router";
 import {Hero} from "./hero.model";
 import "rxjs/add/operator/switchMap";
-import {Observable} from "rxjs";
 
 
 @Component({
@@ -13,9 +12,9 @@ import {Observable} from "rxjs";
 })
 export class HeroListComponent implements OnInit {
 
-  heroes: Observable<Hero[]>;
+  heroes: Promise<Hero[]>;
 
-  private selectedId: number;
+  private selectedHero: Hero;
 
 
   constructor(private heroService: HeroService,
@@ -24,18 +23,15 @@ export class HeroListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.heroes = this.route.params
-      .switchMap((params: Params)=> {
-        this.selectedId = +params['id'];
-        return this.heroService.getHeroes();
-      })
+    this.heroes = this.heroService.getHeroes()
   }
 
   isSelected(hero: Hero) {
-    return hero.id = this.selectedId;
+    return hero === this.selectedHero;
   }
 
   onSelect(hero: Hero) {
-    this.router.navigate(['/hero', hero.id]);
+    this.selectedHero = hero;
+    this.router.navigate(['/detail', hero.id]);
   }
 }

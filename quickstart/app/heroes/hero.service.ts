@@ -15,14 +15,15 @@ export class HeroService {
 
   getHero(id: number): Promise<Hero> {
     const url = `${this.heroesUrl}/${id}`;
-    return this.http.get(url)
+    return this.http.get(this.heroesUrl + '/' + id)
       .toPromise()
-      //response => response.json().data as Hero
-      .then(function (response) {
-        debugger;
-        console.log(response.json());
-      })
+      .then(response => response.json().data as Hero)
       .catch(this.handleError);
+  }
+
+  getHero1(id: number | string): Promise<Hero> {
+    return this.getHeroes()
+      .then(heroes => heroes.find(hero => hero.id === +id));
   }
 
   getHeroes(): Promise<Hero[]> {
