@@ -9,6 +9,8 @@ import {CrisisCenterModule} from "./crisis-center/crisis-center.module";
 import {PageNotFoundComponent} from "./components/not-found.component";
 import {HeroesModule} from "./heroes/heroes.module";
 import {ComposeMessageComponent} from "./components/compose-message.component";
+import {AuthModule} from "./login/login.module";
+import {CanDeactivateGuard} from "./login/can-deactive-guard.service";
 
 @NgModule({
   imports: [
@@ -16,6 +18,7 @@ import {ComposeMessageComponent} from "./components/compose-message.component";
     FormsModule,
     HeroesModule,
     CrisisCenterModule,
+    AuthModule,
     AppRoutingModule],
   declarations: [
     AppComponent,
@@ -24,7 +27,7 @@ import {ComposeMessageComponent} from "./components/compose-message.component";
     PageNotFoundComponent
   ],
   bootstrap: [AppComponent],
-  providers: [{provide: APP_BASE_HREF, useValue: '/'}]
+  providers: [{provide: APP_BASE_HREF, useValue: '/'}, CanDeactivateGuard]
 })
 export class AppModule {
 }

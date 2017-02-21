@@ -7,6 +7,8 @@ import {Component} from "@angular/core";
     <nav>
       <a routerLink="/crisis-center" routerLinkActive="active">Crisis Center</a>
       <a routerLink="/heroes" routerLinkActive="active">Hero List</a>
+      <a routerLink="/admin" routerLinkActive="active">Admin</a>
+      <a routerLink="/login" routerLinkActive="active">Login</a>
     </nav>
     <a [routerLink]="[{ outlets: { popup: ['compose'] } }]">Contact</a>
     <router-outlet></router-outlet>
