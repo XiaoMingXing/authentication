@@ -2,6 +2,7 @@ import {Component, OnInit} from "@angular/core";
 import {Observable} from "rxjs";
 import {ActivatedRoute} from "@angular/router";
 import "rxjs/add/operator/map";
+import {SelectivePreloadingStrategy} from "../common/selective-preloading-strategy";
 
 @Component({
   template: `
@@ -10,6 +11,11 @@ import "rxjs/add/operator/map";
     <p>Session ID: {{ sessionId | async }}</p>
     <a id="anchor"></a>
     <p>Token: {{ token | async }}</p>
+    
+    Preloaded Modules:
+    <ul>
+      <li *ngFor="let module of modules">{{ module }}</li>
+    </ul>
   `
 })
 export class AdminDashboardComponent implements OnInit {
@@ -17,7 +23,11 @@ export class AdminDashboardComponent implements OnInit {
 
   token: Observable<string>;
 
-  constructor(private route: ActivatedRoute) {
+  modules: string[];
+
+  constructor(private route: ActivatedRoute,
+              private preloadStrategy: SelectivePreloadingStrategy) {
+    this.modules = preloadStrategy.preloadedModules;
   }
 
   ngOnInit(): void {

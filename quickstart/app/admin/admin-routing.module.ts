@@ -7,7 +7,7 @@ import {NgModule} from "@angular/core";
 import {AuthGuard} from "../login/auth-guard.service";
 const adminRoutes: Routes = [
   {
-    path: 'admin',
+    path: '',
     component: AdminComponent,
     canActivate: [AuthGuard],
     children: [

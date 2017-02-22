@@ -9,7 +9,7 @@ import {CrisisDetailResolver} from "./crisis-center-resolver.service";
 
 const crisisCenterRoutes: Routes = [
   {
-    path: 'crisis-center',
+    path: '',
     component: CrisisCenterComponent,
     children: [
       {
@@ -19,7 +19,10 @@ const crisisCenterRoutes: Routes = [
           {
             path: ':id',
             component: CrisisDetailComponent,
-            canDeactivate: [CanDeactivateGuard]
+            canDeactivate: [CanDeactivateGuard],
+            resolve: {
+              crisis: CrisisDetailResolver
+            }
           },
           {
             path: '',
