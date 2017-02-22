@@ -5,6 +5,7 @@ import {CrisisDetailComponent} from "./crisis-detail.component";
 import {CrisisListComponent} from "./crisis-list.component";
 import {CrisisCenterComponent} from "./crisis-center.component";
 import {CanDeactivateGuard} from "../login/can-deactive-guard.service";
+import {CrisisDetailResolver} from "./crisis-center-resolver.service";
 
 const crisisCenterRoutes: Routes = [
   {
@@ -36,6 +37,8 @@ const crisisCenterRoutes: Routes = [
   ],
   exports: [
     RouterModule
-  ]
+  ],
+  providers: [CrisisDetailResolver]
 })
-export class CrisisCenterRoutingModule { }
+export class CrisisCenterRoutingModule {
+}

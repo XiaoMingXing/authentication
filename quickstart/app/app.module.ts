@@ -7,10 +7,11 @@ import {AppRoutingModule} from "./app-routing.module";
 import {APP_BASE_HREF} from "@angular/common";
 import {CrisisCenterModule} from "./crisis-center/crisis-center.module";
 import {PageNotFoundComponent} from "./components/not-found.component";
-import {HeroesModule} from "./heroes/heroes.module";
 import {ComposeMessageComponent} from "./components/compose-message.component";
 import {AuthModule} from "./login/login.module";
 import {CanDeactivateGuard} from "./login/can-deactive-guard.service";
+import {HeroesModule} from "./heroes/heroes.module";
+import {AdminModule} from "./main/admin.module";
 
 @NgModule({
   imports: [
@@ -18,6 +19,7 @@ import {CanDeactivateGuard} from "./login/can-deactive-guard.service";
     FormsModule,
     HeroesModule,
     CrisisCenterModule,
+    AdminModule,
     AuthModule,
     AppRoutingModule],
   declarations: [

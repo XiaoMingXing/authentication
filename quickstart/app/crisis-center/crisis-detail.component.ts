@@ -2,11 +2,11 @@
  * Created by mxxiao on 2/2/17.
  */
 import {Component, OnInit, HostBinding} from "@angular/core";
-import {Params, ActivatedRoute, Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import "rxjs/add/operator/switchMap";
 import {slideInDownAnimation} from "../animation";
 import {Crisis} from "./crisis.model";
-import {CrisisService} from "./crisis.service";
+import {DialogService} from "../common/dialog.service";
 
 
 @Component({
@@ -20,22 +20,25 @@ export class CrisisDetailComponent implements OnInit {
   @HostBinding('style.position') position = 'absolute';
 
   crisis: Crisis;
+  editName: string;
 
-  constructor(private crisisService: CrisisService,
+  constructor(private dialogService: DialogService,
               private route: ActivatedRoute,
               private router: Router) {
 
   }
 
   ngOnInit(): void {
-    this.route.params
-      .switchMap((params: Params)=>this.crisisService.getCrisis(+params['id']))
-      .subscribe(crisis=>this.crisis = crisis);
+    this.route.data
+      .subscribe((data: { crisis: Crisis }) => {
+        this.editName = data.crisis.name;
+        this.crisis = data.crisis;
+      });
   }
 
-  gotoCrisis(): void {
+  gotoCrises(): void {
     let crisisId = this.crisis ? this.crisis.id : null;
-    this.router.navigate(['../', { id: crisisId, foo: 'foo' }], { relativeTo: this.route });
+    this.router.navigate(['../', {id: crisisId, foo: 'foo'}], {relativeTo: this.route});
   }
 
   cancel() {
