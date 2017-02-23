@@ -7,4 +7,6 @@ export class CONSTANTS {
   static AUTH_KEY = "isAuthenticated";
   static REDIRECT_KEY = "redirectUrl";
   static expireMinutes = 5 * 60;
+  static AUTH_PREFIX = "auth";
+  static AUTH_USER = "user";
 }

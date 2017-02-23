@@ -25,7 +25,10 @@ export class SimpleLoginComponent implements OnInit {
     this.loginService.login(this.user)
       .subscribe(
         res => {
-          this.cacheService.set(CONSTANTS.AUTH_KEY, {maxAge: CONSTANTS.expireMinutes});
+
+          this.cacheService.set(CONSTANTS.AUTH_KEY, true, {maxAge: CONSTANTS.expireMinutes});
+
+          this.cacheService.set(CONSTANTS.AUTH_USER, res, {maxAge: CONSTANTS.expireMinutes});
 
           let redirectUrl: string = this.cacheService.get(CONSTANTS.REDIRECT_KEY);
 
