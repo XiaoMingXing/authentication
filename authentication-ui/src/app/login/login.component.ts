@@ -2,12 +2,14 @@ import {Component, OnInit} from "@angular/core";
 import {LoginService} from "./login.service";
 import {Router} from "@angular/router";
 import {User} from "../models/user.model";
+import {CONSTANTS} from "../common/constants";
+import {CacheService} from "../cache/cache.service";
 
 @Component({
   selector: 'simple-login',
   templateUrl: './app/login/login.component.html',
   styleUrls: ['./app/login/login.component.css'],
-  providers: [LoginService]
+  providers: [LoginService, CacheService]
 })
 export class SimpleLoginComponent implements OnInit {
 
@@ -15,13 +17,20 @@ export class SimpleLoginComponent implements OnInit {
 
   errorMsg: string = "";
 
-  constructor(private loginService: LoginService, private router: Router) {
+  constructor(private loginService: LoginService, private cacheService: CacheService,
+              private router: Router) {
   }
 
   onLogin() {
     this.loginService.login(this.user)
       .subscribe(
-        res => this.router.navigate(['/dashboard']),
+        res => {
+          this.cacheService.set(CONSTANTS.AUTH_KEY, {maxAge: CONSTANTS.expireMinutes});
+
+          let redirectUrl: string = this.cacheService.get(CONSTANTS.REDIRECT_KEY);
+
+          this.router.navigate([redirectUrl]);
+        },
         err => this.handleError(err));
   }
 
