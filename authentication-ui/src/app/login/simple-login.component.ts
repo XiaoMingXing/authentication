@@ -32,9 +32,17 @@ export class SimpleLoginComponent implements OnInit {
 
           let redirectUrl: string = this.cacheService.get(CONSTANTS.REDIRECT_KEY);
 
+          if (!redirectUrl) {
+            redirectUrl = 'dashboard';
+          }
+
           this.router.navigate([redirectUrl]);
         },
         err => this.handleError(err));
+  }
+
+  onSignup() {
+    this.router.navigate('signup');
   }
 
   private handleError(err: any) {
