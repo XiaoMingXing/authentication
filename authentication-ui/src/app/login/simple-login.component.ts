@@ -41,6 +41,10 @@ export class SimpleLoginComponent implements OnInit {
     this.errorMsg = typeof err._body === 'object' ? "Network error" : err._body;
   }
 
+  onGoogleSignIn() {
+
+  }
+
   ngOnInit() {
   }
 }
