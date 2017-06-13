@@ -6,4 +6,6 @@ public class Constants {
     public static final String MAC_KEY_PAIR_PATH = "/Users/xiaomingxing/Desktop/develop/aws/";
     public static final String FILE_SUFFIX = ".pem";
     public static final int INSTANCE_COUNT = 1;
+
+    public static final String ROLE_ARN = "arn:aws:iam::335867389991:role/UpdateAPP";
 }

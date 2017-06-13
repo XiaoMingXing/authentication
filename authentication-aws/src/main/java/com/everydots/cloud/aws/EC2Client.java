@@ -59,33 +59,18 @@ public class EC2Client {
 
     public List<Instance> describeInstances() {
         return from(getAmazonEC2Client().describeInstances().getReservations())
-                .toMap(new Function<Reservation, Instance>() {
-                    @Override
-                    public Instance apply(Reservation reservation) {
-                        return reservation.getInstances().get(0);
-                    }
-                }).values().asList();
+                .toMap(reservation -> reservation.getInstances().get(0)).values().asList();
     }
 
     public List<Instance> describeActiveInstances() {
-        return from(describeInstances()).filter(new Predicate<Instance>() {
-            @Override
-            public boolean apply(Instance instance) {
-                return "running".equals(instance.getState().getName());
-            }
-        }).toList();
+        return from(describeInstances()).filter(instance1 -> "running".equals(instance1.getState().getName())).toList();
     }
 
     public List<InstanceStateChange> terminateInstances() {
         TerminateInstancesResult terminateInstancesResult = getAmazonEC2Client()
                 .terminateInstances(new TerminateInstancesRequest()
                         .withInstanceIds(from(describeActiveInstances())
-                                .toMap(new Function<Instance, String>() {
-                                    @Override
-                                    public String apply(Instance instance) {
-                                        return instance.getInstanceId();
-                                    }
-                                }).values()));
+                                .toMap(instance1 -> instance1.getInstanceId()).values()));
         return terminateInstancesResult.getTerminatingInstances();
     }
 
