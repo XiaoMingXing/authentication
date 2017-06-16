@@ -1,0 +1,35 @@
+<div class="nav" ng-controller="NavController">
+  <div class="pc pc-display col-xs-7">
+    <ul class="nav-item-bar">
+      <li ng-repeat="item in navItems">
+        <a ui-sref="{{item.state}}">{{item.text}}</a>
+      </li>
+    </ul>
+  </div>
+  <div class="mobile mobile-display col-xs-9">
+    <div class="icon dropdown">
+      <button class="dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+        ☰
+      </button>
+      <ul id="mobile-dropdown" class="nav-item-bar dropdown-menu">
+        <li ng-repeat="item in navItems">
+          <a ng-href="/#{{item.url}}">{{item.text}}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="col-xs-5 pull-right">
+    <div class="userInfo">
+      <div ng-if="isAuthenticated">
+        <span>Hi, Dear {{profile.nickname}} , </span>
+        <span ng-if="profile.country">from {{profile.country }}</span>
+        <a ng-click="logout()">退出</a>
+        <img src="../../images/user.png">
+      </div>
+      <div class="authinfo" ng-if="!isAuthenticated">
+        <a ng-click="login()">登陆</a>
+        <a ng-click="signup()">注册</a>
+      </div>
+    </div>
+  </div>
+</div>

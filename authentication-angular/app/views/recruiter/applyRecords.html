@@ -1,0 +1,25 @@
+<div class="applyRecords" ng-init="init()">
+  <h2 class="full-left">申请记录</h2>
+  <div class="jobStatus">
+    <label class="form-check-inline" ng-repeat="(key,status) in status">
+      <input class="form-check-input" type="checkbox" id="{{key}}" value="{{key}}"
+             ng-click="filterApplyRecords(key)">
+      {{status.text}}
+    </label>
+
+    <div class="records row">
+      <div class="record" ng-repeat="record in records">
+        <div class="applyInfo row">
+          <div class="date pull-left">{{record.applyDate}}</div>
+          <div class="status pull-right" ng-class="getRecordStatus(record.status)">{{status[record.status].text}}</div>
+        </div>
+        <div class="jobInfo">
+          <div class="Title"><a href="#" ng-click="checkJobDetail(record.jobId)">{{record.jobTitle}}</a></div>
+          <div><a href="#" ng-click="checkJobCompany(record.companyId)">{{record.jobCompany}}</a></div>
+          <div class="jobDes">{{record.jobDescriptions}}</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

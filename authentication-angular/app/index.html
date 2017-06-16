@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+
+  <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+  <!-- build:css(.) styles/vendor.css -->
+  <!-- bower:css -->
+  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css"/>
+  <link rel="stylesheet" href="bower_components/angular-chart.js/dist/angular-chart.css"/>
+  <!-- endbower -->
+  <!-- endbuild -->
+  <!-- build:css(.tmp) styles/main.css -->
+  <link rel="stylesheet" href="styles/css/main.css">
+  <!-- endbuild -->
+</head>
+<body ng-app="costAnalysisApp">
+<!--[if lte IE 8]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+  your browser</a> to improve your experience.</p>
+<![endif]-->
+
+<!-- Add your site or application content here-->
+<div class="header">
+  <div portal-header-trans></div>
+</div>
+
+<div class="home" ui-view></div>
+<div class="footer" portal-footer/>
+</div>
+
+
+<!--Third part js-->
+<script src="bower_components/jquery/dist/jquery.js"></script>
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/lodash/dist/lodash.min.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+<script src="bower_components/Chart.js/Chart.js"></script>
+<script src="bower_components/angular-chart.js/angular-chart.js"></script>
+<script src="bower_components/angular-animate/angular-animate.js"></script>
+<script src="bower_components/angular-cookies/angular-cookies.js"></script>
+<script src="bower_components/angular-resource/angular-resource.js"></script>
+<script src="bower_components/angular-route/angular-route.js"></script>
+<script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+
+<!--For Auth0-->
+<script src="bower_components/auth0-lock/build/lock.js"></script>
+<script src="bower_components/angular-lock/dist/angular-lock.js"></script>
+<script src="bower_components/auth0.js/build/auth0.js"></script>
+<script src="bower_components/angular-auth0/dist/angular-auth0.js"></script>
+<script src="bower_components/angular-jwt/dist/angular-jwt.js"></script>
+<!--<script src="scripts/dependencies/less.js"></script>-->
+
+<!--App js-->
+<script src="scripts/app.js"></script>
+<script src="scripts/env.js"></script>
+<script src="scripts/routes/routes.js"></script>
+<script src="scripts/common/constants.js"></script>
+<script src="scripts/controllers/navController.js"></script>
+<script src="scripts/controllers/homeController.js"></script>
+<script src="scripts/controllers/labController.js"></script>
+<script src="scripts/controllers/manage/adminController.js"></script>
+<script src="scripts/controllers/authController.js"></script>
+<script src="scripts/controllers/costAnalysisController.js"></script>
+<script src="scripts/controllers/recruiter/recruiterController.js"></script>
+<script src="scripts/controllers/usersController.js"></script>
+<script src="scripts/directives/common/portalHeaderTrans.js"></script>
+<script src="scripts/directives/common/portalFooter.js"></script>
+<script src="scripts/directives/validators.js"></script>
+<script src="scripts/directives/baseComponents.js"></script>
+<script src="scripts/directives/businessComponents.js"></script>
+<script src="scripts/services/commonService.js"></script>
+<script src="scripts/services/authService.js"></script>
+<script src="scripts/services/userService.js"></script>
+<script src="scripts/services/message_cn.js"></script>
+
+<!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+<script>
+  !function (A, n, g, u, l, a, r) {
+    A.GoogleAnalyticsObject = l, A[l] = A[l] || function () {
+        (A[l].q = A[l].q || []).push(arguments)
+      }, A[l].l = +new Date, a = n.createElement(g),
+      r = n.getElementsByTagName(g)[0], a.src = u, r.parentNode.insertBefore(a, r)
+  }(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+  ga('create', 'UA-XXXXX-X');
+  ga('send', 'pageview');
+</script>
+
+</body>
+</html>

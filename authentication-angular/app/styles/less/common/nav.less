@@ -1,0 +1,119 @@
+.nav {
+  width: 100%;
+  min-height: 47px;
+  background: @main_background;
+
+  .pc {
+
+    ul {
+      list-style: none;
+      display: inline;
+    }
+
+    ul.nav-item-bar li {
+      float: left;
+      padding: 10px;
+      margin: 0 15px;
+      min-width: 100px;
+      text-align: center;
+
+      a {
+        color: #ffffff;
+        font-size: 16px;
+      }
+
+      a:hover {
+        cursor: inherit;
+        text-decoration: none;
+      }
+    }
+
+    ul.nav-item-bar li:hover {
+      border-bottom: 2px solid @main_color;
+      cursor: pointer;
+    }
+  }
+
+  .mobile {
+
+    ul {
+      list-style: none;
+      display: none;
+    }
+
+    .icon button {
+      background: transparent;
+      border: none;
+      font-size: 28px;
+    }
+
+    ul.nav-item-bar {
+      width: 100%;
+      background: #ffffff;
+
+      li {
+        padding: 5px 0 5px;
+        margin-left: 10px;
+      }
+
+      li:hover {
+        border-left: 2px solid @main_color;
+        cursor: pointer;
+      }
+    }
+  }
+
+  ul.nav-icon-bar li {
+    float: left;
+    margin: 10px;
+    color: #ffffff;
+  }
+
+  .userInfo {
+    padding: 5px;
+    text-align: right;
+    padding-right: 15px;
+    line-height: 30px;
+
+    a {
+      cursor: pointer;
+    }
+
+    .authinfo a {
+      color: white;
+      font-size: 16px;
+    }
+  }
+
+  img {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+.opacity {
+  filter: alpha(opacity=50);
+  -moz-opacity: 0.5;
+  -khtml-opacity: 0.5;
+  opacity: 0.5;
+}
+
+.pc-display {
+  @media only screen and (min-width: @gt_medium_screen) {
+    display: block;
+  }
+
+  @media only screen and (max-width: @le_medium_screen) {
+    display: none;
+  }
+}
+
+.mobile-display {
+  @media only screen and (max-width: @le_medium_screen) {
+    display: block;
+  }
+
+  @media only screen and (min-width: @gt_medium_screen) {
+    display: none;
+  }
+}

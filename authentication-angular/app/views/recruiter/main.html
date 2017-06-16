@@ -1,0 +1,21 @@
+<div class="recruiter main col-xs-10" ng-init="init()">
+  <div class="panel col-xs-4">
+    <div class="list-group">
+      <a ui-sref=".personalDetails" class="list-group-item"
+         ng-class="{'active':tabs.personalDetails}"
+         ng-click="switchTab('personalDetails')">
+        个人资料
+      </a>
+      <a ui-sref=".occupations" class="list-group-item"
+         ng-class="{'active':tabs.occupations}"
+         ng-click="switchTab('occupations')">职位查询</a>
+      <a ui-sref=".applyRecords" class="list-group-item"
+         ng-class="{'active':tabs.applyRecords}"
+         ng-click="switchTab('applyRecords')">申请记录</a>
+    </div>
+  </div>
+  <div class="content col-xs-8">
+    <ui-view></ui-view>
+  </div>
+</div>
+
