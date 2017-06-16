@@ -1,9 +1,10 @@
 'use strict';
 angular.module('costAnalysisApp')
-  .service('authServiceSimple', function (lock, authManager) {
+  .service('authServiceSimple', function (lock, authManager, $location) {
 
     function login() {
-      lock.show();
+      // lock.show();
+      $location.path('login');
     }
 
     function logout() {

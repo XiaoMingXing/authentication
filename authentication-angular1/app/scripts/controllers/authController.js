@@ -1,6 +1,6 @@
 'use strict';
 angular.module('costAnalysisApp')
-  .controller('loginCtrl', function ($scope, authService) {
+  .controller('loginCtrl', function ($scope, authService, $window) {
 
     var vm = this;
 
@@ -30,7 +30,25 @@ angular.module('costAnalysisApp')
       });
     };
 
+    vm.renderButton = function () {
+      gapi.signin2.render('my-signin2', {
+        'scope': 'profile email',
+        'width': 240,
+        'height': 50,
+        'longtitle': true,
+        'theme': 'dark',
+        'onsuccess': onSuccess,
+        'onfailure': onFailure
+      });
+    };
 
+    function onSuccess(googleUser) {
+      console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+    }
+
+    function onFailure(error) {
+      console.log(error);
+    }
   })
   .controller('registerCtrl', function ($scope, $location, RegisterService, Spinner, validator, $cookieStore) {
     $scope.dataModel = {
@@ -103,3 +121,13 @@ angular.module('costAnalysisApp')
         });
     }
   });
+
+
+function onGoogleSignIn(googleUser) {
+  var profile = googleUser.getBasicProfile();
+  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+  console.log('Name: ' + profile.getName());
+  console.log('Image URL: ' + profile.getImageUrl());
+  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+
+}
