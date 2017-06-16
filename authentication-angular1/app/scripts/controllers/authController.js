@@ -42,8 +42,21 @@ angular.module('costAnalysisApp')
       });
     };
 
-    function onSuccess(googleUser) {
-      console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+    function onSuccess(response) {
+      var roleArn = "arn:aws:iam::335867389991:role/UpdateAPP";
+      if (!response.error) {
+        AWS.config.credentials = new AWS.WebIdentityCredentials({
+          RoleArn: roleArn,
+          WebIdentityToken: response.Zi.id_token
+        });
+
+
+        var s3 = new AWS.S3();
+
+        console.log('You are now logged in.', s3);
+      } else {
+        console.log('There was a problem logging you in.');
+      }
     }
 
     function onFailure(error) {
