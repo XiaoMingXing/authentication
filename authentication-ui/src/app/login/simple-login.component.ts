@@ -20,6 +20,26 @@ export class SimpleLoginComponent implements OnInit {
   constructor(private loginService: LoginService, private cacheService: CacheService,
               private router: Router) {
   }
+/*
+  onSuccess = (googleUser: any) => {
+    console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+  }
+
+  onFailure(error: any) {
+    console.log(error);
+  }
+
+  renderButton() {
+    gapi.signin2.render('my-signin2', {
+      'scope': 'profile email',
+      'width': 240,
+      'height': 50,
+      'longtitle': true,
+      'theme': 'dark',
+      'onsuccess': this.onSuccess,
+      'onfailure': this.onFailure
+    });
+  }*/
 
   onLogin() {
     this.loginService.login(this.user)
