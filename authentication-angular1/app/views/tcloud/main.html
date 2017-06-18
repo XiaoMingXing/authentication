@@ -1,0 +1,28 @@
+<div class="fileUpload">
+  <form class="applicationFiles row">
+    <div class="form-group">
+      <h3>上传应用文件（Optional）</h3>
+      <div>
+        <input type="file" id="file" class="inputfile">
+        <label for="file">
+          <i class="fa fa-upload" aria-hidden="true" style="color:blue;"></i>
+          Choose a application package</label>
+        <i class="help-block">请上传测试文件，文件类型为zip，apk。不大于50M</i>
+      </div>
+    </div>
+    <hr>
+    <div class="form-group">
+      <h3>上传测试文件</h3>
+      <div>
+        <input type="file" id="testFileUpload" class="inputfile">
+        <label for="file">
+          <i class="fa fa-upload" aria-hidden="true" style="color:blue;"></i>
+          Choose a test package</label>
+        <i class="help-block">请上传测试文件，文件类型为zip，apk。不大于50M</i>
+      </div>
+
+
+    </div>
+    <button type="submit" class="btn btn-primary" ng-click="submit()">Submit</button>
+  </form>
+</div>

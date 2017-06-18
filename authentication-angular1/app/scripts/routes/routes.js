@@ -93,5 +93,12 @@ angular.module('costAnalysisApp')
       .state('logout', {
         url: '/logout',
         templateUrl: 'views/public/logout.html'
-      });
+      })
+
+     /*云测试平台*/
+      .state('tcloud',{
+        url:'/tcloud',
+        templateUrl: 'views/tcloud/main.html',
+        controller:'TcCloudController'
+      })
   });

@@ -14,7 +14,8 @@ angular.module('costAnalysisApp')
       {text: "用户管理", state: "users"},
       {text: "招聘SaaS", state: "recruiter"},
       {text: "博客管理", state: "articles"},
-      {text: "后台管理", state: "admin"}
+      {text: "后台管理", state: "admin"},
+      {text: "云测试平台", state: "tcloud"}
     ];
     $scope.navIcons = messageCN.nav_icons;
 

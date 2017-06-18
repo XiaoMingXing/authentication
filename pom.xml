@@ -10,6 +10,7 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>authentication-spring</module>
+        <module>authentication-openstack</module>
     </modules>
 
     <!-- 依赖项定义 -->
