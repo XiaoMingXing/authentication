@@ -3,7 +3,7 @@
     <div class="form-group">
       <h3>上传应用文件（Optional）</h3>
       <div>
-        <input type="file" id="file" class="inputfile">
+        <input type="file" id="file" class="inputfile" nv-file-select uploader="datamodal.applicationFile">
         <label for="file">
           <i class="fa fa-upload" aria-hidden="true" style="color:blue;"></i>
           Choose a application package</label>
@@ -14,15 +14,13 @@
     <div class="form-group">
       <h3>上传测试文件</h3>
       <div>
-        <input type="file" id="testFileUpload" class="inputfile">
+        <input type="file" nv-file-select uploader="datamodal.testFile" id="testFileUpload" class="inputfile">
         <label for="file">
           <i class="fa fa-upload" aria-hidden="true" style="color:blue;"></i>
           Choose a test package</label>
         <i class="help-block">请上传测试文件，文件类型为zip，apk。不大于50M</i>
       </div>
-
-
     </div>
-    <button type="submit" class="btn btn-primary" ng-click="submit()">Submit</button>
+    <button type="button" class="btn btn-primary" ng-click="submit()">Submit</button>
   </form>
 </div>

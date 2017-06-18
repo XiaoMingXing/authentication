@@ -10,11 +10,14 @@
 angular.module('costAnalysisApp')
   .controller('TCloudController', function ($scope) {
 
-
-    $scope.submit = function () {
-
+    $scope.datamodal = {
+      applicationFile: '',
+      testFile: ''
     };
 
+    $scope.submit = function () {
+      console.log('DataModal: ', $scope.datamodal);
+    };
 
 
   });

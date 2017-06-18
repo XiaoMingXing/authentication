@@ -99,6 +99,6 @@ angular.module('costAnalysisApp')
       .state('tcloud',{
         url:'/tcloud',
         templateUrl: 'views/tcloud/main.html',
-        controller:'TcCloudController'
+        controller:'TCloudController'
       })
   });

@@ -43,8 +43,8 @@ public class SwiftClient {
         Identifier projectIdentifier = Identifier.byId("demo");
 
         return OSFactory.builderV3()
-                .endpoint("http://127.0.0.1:5000/v3")
-                .credentials("admin", "nomoresecret", projectIdentifier)
+                .endpoint("http://192.168.56.101/identity/")
+                .credentials("demop", "nomoresecret", projectIdentifier)
                 .authenticate()
                 .objectStorage();
     }
