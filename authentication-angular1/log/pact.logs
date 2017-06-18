@@ -1,0 +1,85 @@
+I, [2016-12-19T18:01:27.745744 #53061]  INFO -- : Registered expected interaction POST /cost/rest/auth/loginPact
+D, [2016-12-19T18:01:27.746000 #53061] DEBUG -- : {
+  "description": "expect login success",
+  "provider_state": "there is a valid username and password",
+  "request": {
+    "method": "post",
+    "path": "/cost/rest/auth/loginPact",
+    "body": "{\"username\":\"siyu\",\"password\":\"password\",\"email\":\"920477852@qq.com\"}"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json; charset=utf-8"
+    },
+    "body": {
+      "data": {
+        "email": "920477852@qq.com"
+      }
+    }
+  }
+}
+I, [2016-12-19T18:01:27.749039 #53061]  INFO -- : Received request POST /cost/rest/auth/loginPact
+D, [2016-12-19T18:01:27.749137 #53061] DEBUG -- : {
+  "path": "/cost/rest/auth/loginPact",
+  "query": "",
+  "method": "post",
+  "body": "{\"username\":\"siyu\",\"password\":\"password\",\"email\":\"920477852@qq.com\"}",
+  "headers": {
+    "Content-Length": "68",
+    "Content-Type": "application/xml",
+    "Referer": "http://localhost:9090/context.html",
+    "Origin": "http://localhost:9090",
+    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X) AppleWebKit/538.1 (KHTML, like Gecko) PhantomJS/2.1.1 Safari/538.1",
+    "Accept": "*/*",
+    "Connection": "Keep-Alive",
+    "Accept-Encoding": "gzip, deflate",
+    "Accept-Language": "en-US,*",
+    "Host": "localhost:9001",
+    "Version": "HTTP/1.1"
+  }
+}
+I, [2016-12-19T18:01:27.749754 #53061]  INFO -- : Found matching response for POST /cost/rest/auth/loginPact
+D, [2016-12-19T18:01:27.749803 #53061] DEBUG -- : {
+  "status": 200,
+  "headers": {
+    "Content-Type": "application/json; charset=utf-8"
+  },
+  "body": {
+    "data": {
+      "email": "920477852@qq.com"
+    }
+  }
+}
+I, [2016-12-19T18:01:27.753162 #53061]  INFO -- : Verifying - interactions matched for example ""
+I, [2016-12-19T18:01:27.755346 #53061]  INFO -- : Writing pact with details {:consumer=>{:name=>"service_consumer"}, :provider=>{:name=>"service_provider"}}
+I, [2016-12-19T18:01:27.755413 #53061]  INFO -- : Writing pact for service_provider to tmp/pacts/service_consumer-service_provider.json
+I, [2016-12-19T18:01:39.532329 #53061]  INFO -- : Received request POST /cost/rest/auth/loginPact
+D, [2016-12-19T18:01:39.532445 #53061] DEBUG -- : {
+  "path": "/cost/rest/auth/loginPact",
+  "query": "",
+  "method": "post",
+  "body": "{\"username\":\"siyu\",\"password\":\"password\",\"email\":\"920477852@qq.com\"}",
+  "headers": {
+    "Content-Length": "68",
+    "Content-Type": "application/x-www-form-urlencoded",
+    "Cookie": "",
+    "X-Forwarded-For": "127.0.0.1",
+    "Host": "localhost:9001",
+    "X-Forwarded-Host": "example.org",
+    "X-Forwarded-Port": "80",
+    "Version": "HTTP/1.1"
+  }
+}
+I, [2016-12-19T18:01:39.532618 #53061]  INFO -- : Found matching response for POST /cost/rest/auth/loginPact
+D, [2016-12-19T18:01:39.532671 #53061] DEBUG -- : {
+  "status": 200,
+  "headers": {
+    "Content-Type": "application/json; charset=utf-8"
+  },
+  "body": {
+    "data": {
+      "email": "920477852@qq.com"
+    }
+  }
+}

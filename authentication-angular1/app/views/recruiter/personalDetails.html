@@ -1,0 +1,50 @@
+<div class="baseInfo">
+  <h2 class="full-left">个人基本信息</h2>
+  <form>
+    <div class="form-group">
+      <label for="email">邮箱</label>
+      <div ng-show="config.editState">
+        <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
+        <small id="emailHelp" class="form-text text-muted">对于用户的信息，我们不会分享给别人.</small>
+      </div>
+      <div ng-hide="config.editState">
+        <span>{{personalDetails.email}}</span>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="username">用户名</label>
+      <div ng-show="config.editState">
+        <input type="input" class="form-control" id="username"/>
+      </div>
+      <div ng-hide="config.editState">
+        <span>{{personalDetails.username}}</span>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="phoneNumber">手机号</label>
+      <div ng-show="config.editState">
+        <input type="input" class="form-control" id="phoneNumber"/>
+      </div>
+      <div ng-hide="config.editState">
+        <span>{{personalDetails.phoneNumber}}</span>
+      </div>
+    </div>
+    <div class="form-group">
+      <div>
+        <label for="resumeFile">上传简历</label>
+        <input type="file" class="form-control-file" id="resumeFile" aria-describedby="fileHelp">
+      </div>
+      <small id="fileHelp" class="form-text text-muted">简历仅支持.doc .docx .ppt .pdf等格式..
+      </small>
+    </div>
+    <div class="form-group">
+      <div class="pull-right" ng-if="config.editState">
+        <button type="button" class="btn btn-link" ng-click="cancel()">取消</button>
+        <button type="button" class="btn btn-primary" ng-click="save()">保存</button>
+      </div>
+      <div ng-hide="config.editState">
+        <button type="button" class="btn btn-primary" ng-click="edit()">编辑</button>
+      </div>
+    </div>
+  </form>
+</div>

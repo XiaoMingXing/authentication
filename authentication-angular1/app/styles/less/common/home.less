@@ -1,0 +1,428 @@
+@product_div_height: 320px;
+@login_form_width: 76%;
+@home_frame_width: 66%;
+
+.home {
+  min-height: 600px;
+}
+
+.home {
+
+  .form-login, .form-register {
+    top: 10px;
+    margin: auto;
+    position: relative;
+
+    .form-group {
+      margin-left: 0px;
+      margin-right: 0px;
+    }
+    .login-password, .login-email {
+      .input-group {
+        width: 80%;
+      }
+    }
+
+    button {
+      width: 100%;
+      background: rgba(55, 186, 196, 0.85);
+      border: none;
+
+      .background-transition
+    }
+
+    button:hover {
+      background: #66D5DE;
+      cursor: pointer;
+    }
+
+    form {
+      margin-top: 20px;
+
+      label {
+        padding: 5px;
+      }
+
+      .form-group {
+
+        div.label {
+          width: 20%;
+          float: left;
+          color: #000000;
+          padding: 5px;
+        }
+
+        div.input {
+          width: @login_form_width;
+          float: left;
+        }
+
+        div.checkbox {
+          margin-left: 24%;
+        }
+        div.summit {
+          margin-left: 20%;
+        }
+      }
+    }
+  }
+
+  .background {
+    background: #E4E2E2;
+    position: relative;
+    width: 100%;
+    background: url(../../images/background.jpg);
+
+    @media only screen and (min-width: @gt_medium_screen) {
+      min-height: 450px;
+    }
+
+    .description .divCenter {
+      font-size: 60px;
+      position: absolute;
+      color: #886363;
+      margin-left: 10%;
+      margin-top: 10%;
+    }
+
+    .container {
+      border: 1px solid #C1BDA6;
+      height: 300px;
+      border-radius: 4px;
+      position: relative;
+
+      @media only screen and (max-width: @le_medium_screen) {
+        width: 100%;
+      }
+
+      @media only screen and (min-width: @gt_medium_screen) {
+        margin-top: 50px;
+        margin-right: 50px;
+        width: 380px;
+        float: right;
+      }
+    }
+  }
+
+  .products {
+    min-height: @product_div_height;
+    position: relative;
+    margin: auto;
+
+    .product {
+      background: transparent;
+      border: 1px solid rgba(164, 167, 164, 0.74);
+      color: #000000;
+      padding-left: 15px;
+      border-radius: 4px;
+      .background-transition
+      ul li {
+        padding-left: 15px;
+      }
+
+      @media only screen and (min-width: @gt_medium_screen) {
+        .logo, .title, .desc {
+          text-align: center;
+        }
+
+        img {
+          width: 95px;
+          height: 75px;
+          margin-top: 10px;
+        }
+      }
+
+      @media only screen and (max-width: @le_medium_screen) {
+        .logo {
+          float: left;
+          height: 100%;
+          width: 20%;
+        }
+
+        .title, .desc {
+          text-align: left;
+        }
+
+        .title {
+          margin: 5px;
+        }
+
+        img {
+          width: 75px;
+          padding-top: 25px;
+          padding-right: 15px;
+        }
+      }
+
+      .title {
+        font-size: 30px;
+        margin: 10px;
+      }
+    }
+
+    .product:hover {
+      background: #FFB530;
+      cursor: pointer;
+    }
+
+    @media only screen and (max-width: @le_medium_screen) {
+      width: 100%;
+
+      .product {
+        margin-top: 1px;
+        height: 170px;
+        width: 100%;
+      }
+
+    }
+
+    @media only screen and (min-width: @gt_medium_screen) {
+      width: @home_frame_width;
+      top: -50px;
+
+      .product {
+        height: @product_div_height;
+        margin-left: 5%;
+        width: 27%;
+      }
+    }
+  }
+
+  .desc {
+    min-height: 500px;
+    margin: auto;
+    .ed-width(60%);
+
+    > div {
+      float: left;
+    }
+
+    .picture {
+      width: 52%;
+      background: url(../../images/bigdata_background.jpeg) no-repeat center;
+      min-height: 500px;
+      background-size: 100%;
+    }
+
+    .shortDesc {
+
+      .ed-width(48%);
+
+      padding: 10px;
+
+      ul {
+        padding-left: 20px;
+      }
+
+      p {
+        text-align: left;
+        color: rgb(102, 102, 102);
+        line-height: 1.4;
+        letter-spacing: 0px;
+        font-size: 14px;
+        font-family: 'Lato Light';
+        margin: 20px 0;
+      }
+
+      .container-fluid {
+        padding-left: 5px;
+      }
+
+      .container-fluid .col-xs-3 {
+        height: 100px;
+        border-radius: 4px;
+        width: 27%;
+        margin-right: 3%;
+        border: 1px solid darkgray;
+        border-radius: 4px;
+      }
+
+      .container-fluid .col-xs-3:hover {
+        cursor: pointer;
+        background: #FFB530;
+      }
+
+      .productName {
+        text-align: center;
+      }
+
+    }
+  }
+
+  .sentence {
+    margin: auto;
+    min-height: 220px;
+    .ed-width(60%);
+
+    .start {
+      font-size: 45px;
+    }
+
+    .content {
+      text-align: center;
+      color: rgb(102, 102, 102);
+      line-height: 1.4;
+      letter-spacing: 0px;
+      font-size: 16px;
+      font-family: 'Old Standard TT Italic';
+      background: none;
+    }
+
+    .end {
+      font-size: 45px;
+      float: right;
+      margin-top: 20px;
+    }
+
+  }
+
+  .services {
+    margin: auto;
+    min-height: 550px;
+    .ed-width(60%);
+
+    .service {
+      .ed-width(48%);
+      float: left;
+
+      .picture.awsCost {
+        background: url(../../images/aws_cost.png) no-repeat center;
+        height: 350px;
+        background-size: 300px;
+      }
+
+      .picture.openSdk {
+        background: url(../../images/opensdk.png) no-repeat center;
+        height: 350px;
+        background-size: 300px;
+      }
+
+      .title {
+        text-align: center;
+      }
+
+      .content {
+        text-align: center;
+        margin: 20px 0;
+      }
+
+      .btn-container {
+        text-align: center;
+        margin: 10px;
+
+        button {
+          width: 220px;
+        }
+      }
+
+    }
+
+    .service:first-child {
+      margin-right: 4%;
+    }
+  }
+
+  .browsehappy {
+    margin: 0.2em 0;
+    background: #ccc;
+    color: #000;
+    padding: 0.2em 0;
+  }
+
+  body {
+    padding: 0;
+  }
+
+  /* Everything but the jumbotron gets side spacing for mobile first views */
+  .header,
+  .marketing,
+  .footer {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  /* Custom page header */
+  .header {
+    border-bottom: 1px solid #e5e5e5;
+    margin-bottom: 10px;
+  }
+
+  /* Make the masthead heading the same height as the navigation */
+  .header h3 {
+    margin-top: 0;
+    margin-bottom: 0;
+    line-height: 40px;
+    padding-bottom: 19px;
+  }
+
+  /* Custom page footer */
+  .footer {
+    padding-top: 19px;
+    color: #777;
+    border-top: 1px solid #e5e5e5;
+  }
+
+  .container-narrow > hr {
+    margin: 30px 0;
+  }
+
+  /* Main marketing message and sign up button */
+  .jumbotron {
+    text-align: center;
+    border-bottom: 1px solid #e5e5e5;
+  }
+
+  .jumbotron .btn {
+    font-size: 21px;
+    padding: 14px 24px;
+  }
+
+  /* Supporting marketing content */
+  .marketing {
+    margin: 40px 0;
+  }
+
+  .marketing p + h4 {
+    margin-top: 28px;
+  }
+
+  /* Responsive: Portrait tablets and up */
+  @media screen and (min-width: 768px) {
+    .container {
+      max-width: 730px;
+    }
+
+    /* Remove the padding we set earlier */
+    .header,
+    .marketing,
+    .footer {
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    /* Space out the masthead */
+    .header {
+      margin-bottom: 30px;
+    }
+
+    /* Remove the bottom border on the jumbotron for visual effect */
+    .jumbotron {
+      border-bottom: 0;
+    }
+
+    .right {
+      float: right;
+    }
+
+    .left {
+      float: left;
+    }
+  }
+
+  .register {
+    text-decoration: underline;
+    float: right;
+  }
+
+}
+

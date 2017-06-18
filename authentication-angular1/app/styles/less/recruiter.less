@@ -1,0 +1,92 @@
+.recruiter.main {
+  margin: auto;
+  float: none;
+  margin-top: 20px;
+
+  .list-group-item.active {
+    background-color: #37BAC4;
+    border-color: #37BAC4;
+  }
+
+  .baseInfo {
+    text-align: left;
+
+    .form-group {
+      width: 60%;
+    }
+  }
+
+  .occupations {
+    .searchBox, .sortBox, .criteriaBox {
+      margin-top: 20px;
+      padding-left: 12px;
+    }
+
+    .sortBox {
+      font-size: 20px;
+
+      .glyphicon {
+        margin: 0 3px;
+      }
+      .glyphicon:hover {
+        color: #37bac4;
+        cursor: pointer;
+      }
+    }
+
+    .criteriaBox {
+
+      .btn-link {
+        padding: 0;
+      }
+
+      .clearLink {
+        margin-left: 15px;
+        color: gray;
+      }
+
+      .criterias {
+        margin-left: -10px;
+        margin-top: 5px;
+      }
+
+      .criteria {
+        background: #37bac4;
+        border-radius: 3px;
+        padding: 3px;
+        text-align: center;
+        color: white;
+        margin: 0 5px;
+      }
+    }
+
+    .job {
+      margin: 10px;
+      border: 1px solid #efeeee;
+      padding: 10px;
+      text-align: left;
+      border-radius: 4px;
+      background-color: rgba(186, 197, 197, 0.12);
+
+      > div {
+        margin: 5px;
+      }
+    }
+  }
+
+  .applyRecords {
+    text-align: left;
+
+    .jobStatus label {
+      margin: 0 10px;
+    }
+
+    .record {
+      .occupations .job;
+    }
+
+    .applyInfo {
+      padding-right: 30px;
+    }
+  }
+}

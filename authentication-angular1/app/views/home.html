@@ -1,0 +1,163 @@
+<div class="background">
+  <div class="description">
+    <div class="divCenter pc-display">
+      <span>Just do what you want!</span>
+    </div>
+  </div>
+  <login-form ng-if="!isAuthenticated"></login-form>
+  <div class="identities-wrap" ng-if="isAuthenticated">
+    <button class="btn btn-primary" ng-click="linkAccount()">Link Account</button>
+    <ul class="list-group identities-list">
+      <li class="list-group-item identities-item" ng-repeat="identity in identities">
+        <img ng-src="{{identity.profileData.picture}}"/>
+        <span>{{ identity.profileData.name || identity.profileData.email }}</span>
+        <button class="btn btn-danger" ng-click="unLinkAccount(identity)"><i class="glyphicon glyphicon-trash"></i></button>
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="products">
+  <div class="product col-xs-3">
+    <div class="logo">
+      <img ng-src="../images/cloud.png"/>
+    </div>
+    <div>
+      <div class="title">
+        Cloud Computing
+      </div>
+      <div class="detail">
+        In this module, it contains:
+        <ul>
+          <li>AWS Services analysis</li>
+          <li>Typical architecture scenarios based on AWS</li>
+          <li>Cloud best practise</li>
+          <li>Cloud related projects and practise</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="product col-xs-3">
+    <div class="logo">
+      <img ng-src="../images/bigdata.png"/>
+    </div>
+    <div>
+      <div class="title">
+        Big Data
+      </div>
+      <div class="detail">
+        In this module, it contains:
+        <ul>
+          <li>Hadoop analysis.</li>
+          <li>Basic algorithms articles and code samples</li>
+          <li>Big Data algorithms</li>
+          <li>Big data in cloud</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="product col-xs-3">
+    <div class="logo">
+      <img ng-src="../images/products.png"/>
+    </div>
+    <div>
+      <div class="title">
+        My Products
+      </div>
+      <div class="detail">
+        In this module, it contains:
+        <ul>
+          <li>My Products</li>
+          <li>My Lab practise, include code and ux graphics</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div class="desc">
+  <div class="shortDesc">
+    <h1>New updates here</h1>
+
+    <div class="cloudCompute">
+      <h4>Cloud Computing</h4>
+      <ul>
+        <li><a href="#">How to use AWS SDK in mac.</a></li>
+        <li><a href="#">Use ec2 SDK to create instance.</a></li>
+        <li><a href="#">Use SDK to finish elb configure and testing.</a></li>
+        <li><a href="#">Use S3 to store uploaded data.</a></li>
+      </ul>
+    </div>
+
+    <div class="bigData">
+      <h4>Big Data</h4>
+      <ul>
+        <li><a href="#">Basic Algorithms</a></li>
+        <li><a href="#">Hadoop and Hadoop echo systems.</a></li>
+        <li><a href="#">Ansible & DevOps brief insight.</a></li>
+        <li><a href="#">Big data algorithms</a></li>
+        <li><a href="#">Big data code projects.</a></li>
+      </ul>
+    </div>
+
+    <div class="myProducts">
+      <h4>My Products</h4>
+
+      <div class="container-fluid">
+        <div class="col-xs-3">
+          <div class="permission"></div>
+          <div class="productName">Permission</div>
+        </div>
+        <div class="col-xs-3">
+          <div class="reminder"></div>
+          <div class="productName">Reminder</div>
+        </div>
+        <div class="col-xs-3">
+          <div class="analysis"></div>
+          <div class="productName">Analysis</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="picture pc-display"></div>
+</div>
+<div class="sentence">
+  <div class="start">“</div>
+  <div class="content">
+    In everyday, in every night. fight for your self, try your best to make your dream come true, no matter how hard
+    it is. In this world if we don't work hard, study hard, no right for you. repeat one thing more than thousands
+    times, then you can master that. something you can do, something you can not do, be ware in your mind. try your
+    best to do everything you meet.
+  </div>
+  <div class="end">”</div>
+</div>
+<div class="services">
+  <div class="service">
+    <div class="picture awsCost"></div>
+    <div class="title">
+      <h2>Open Restful APIs</h2>
+    </div>
+    <div class="content">
+      <p>this are api services which provide big data analysis algorithms, some common AWS api invoke
+        and publish other util services as rest services. also cover some micro service project.
+      </p>
+    </div>
+    <div class="btn-container">
+      <button class="ed-btn">Read more</button>
+    </div>
+  </div>
+  <div class="service">
+    <div class="picture openSdk"></div>
+    <div class="title">
+      <h2>AWS Cost Analysis</h2>
+    </div>
+    <div class="content">
+      <p>Include aws cost analysis, and use some strategy to control aws cost.
+        contains code project to process aws billing analysis, provide optimize tools</p>
+    </div>
+    <div class="btn-container">
+      <button class="ed-btn">Read more</button>
+    </div>
+  </div>
+</div>
+
