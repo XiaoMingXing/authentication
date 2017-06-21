@@ -7,6 +7,7 @@ import org.openstack4j.model.common.ActionResponse;
 import org.openstack4j.model.common.Identifier;
 import org.openstack4j.model.common.Payloads;
 import org.openstack4j.model.compute.Server;
+import org.openstack4j.model.identity.v3.Domain;
 import org.openstack4j.model.storage.object.SwiftContainer;
 import org.openstack4j.model.storage.object.SwiftObject;
 import org.openstack4j.model.storage.object.options.ContainerListOptions;
@@ -44,7 +45,7 @@ public class SwiftClient {
 
         return OSFactory.builderV3()
                 .endpoint("http://192.168.56.101/identity/")
-                .credentials("demop", "nomoresecret", projectIdentifier)
+                .credentials("admin", "nomoresecret", projectIdentifier)
                 .authenticate()
                 .objectStorage();
     }
@@ -58,5 +59,13 @@ public class SwiftClient {
         objects.forEach((Consumer<SwiftObject>) swiftObject -> {
             System.out.println(swiftObject.getName());
         });
+    }
+
+    public void listDomains() {
+        List<? extends Domain> domainList = OSFactory.builderV3()
+                .endpoint("http://192.168.56.101/identity/")
+                .credentials("admin", "nomoresecret", Identifier.byId("demo"))
+                .authenticate().identity().domains().list();
+        domainList.forEach((Consumer<Domain>) domain -> System.out.println(domain.getName()));
     }
 }
