@@ -50,10 +50,12 @@ angular.module('costAnalysisApp')
           WebIdentityToken: response.Zi.id_token
         });
 
-
         var s3 = new AWS.S3();
-
-        console.log('You are now logged in.', s3);
+        s3.listBuckets(function (buckets) {
+          buckets.forEach(function (bucket) {
+            console.log('bucket: ', bucket);
+          })
+        });
       } else {
         console.log('There was a problem logging you in.');
       }
