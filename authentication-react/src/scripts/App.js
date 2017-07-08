@@ -25,12 +25,8 @@ class App extends Component {
                     To get started, edit <code>src/App.js</code> and save to reload.
                 </p>
                 <div>
-                    <div className="shopping-list">
-                        {this.renderShoppingList('Shopping')}
-                    </div>
-                    <div className="good-list">
-                        {this.renderGoodList('Goods')}
-                    </div>
+                    <ShoppingList name="Shopping" />
+                    <GoodList/>
                 </div>
 
             </div>
