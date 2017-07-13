@@ -1,34 +1,21 @@
 import React, {Component} from "react";
-import logo from "./logo.svg";
 import "./App.css";
-import ShoppingList from "./shopping/shopping-list";
-import GoodList from "./shopping/good-list";
+import Header from "./common/Header";
+import LeftPanel from "./common/LeftPanel";
+import MainContent from "./common/MainContent";
 
 class App extends Component {
-
-    renderShoppingList(name) {
-        return <ShoppingList name={name} />;
-    }
-
-    renderGoodList() {
-        return <GoodList />;
-    }
 
     render() {
         return (
             <div className="App">
-                <div className="App-header">
-                    <img src={logo} className="App-logo" alt="logo"/>
-                    <h2>Welcome to React</h2>
+                <div className="Header row">
+                    <Header />
                 </div>
-                <p className="App-intro">
-                    To get started, edit <code>src/App.js</code> and save to reload.
-                </p>
-                <div>
-                    <ShoppingList name="Shopping" />
-                    <GoodList/>
+                <div className="Content row">
+                    <LeftPanel />
+                    <MainContent />
                 </div>
-
             </div>
         );
     }
