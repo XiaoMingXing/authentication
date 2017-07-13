@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import logo from "./logo.svg";
 
 class Header extends Component {
 
@@ -9,7 +10,7 @@ class Header extends Component {
                         <div>
                             <div className="col-md-1">
                                 <a className="navbar-brand" href="#">
-                                    <img alt="Brand" src="..."/>
+                                    <img src={logo} className="brand" alt="Brand"/>
                                 </a>
                             </div>
                             <div className="col-md-7">
