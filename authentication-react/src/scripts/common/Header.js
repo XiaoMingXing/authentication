@@ -14,8 +14,18 @@ class Header extends Component {
                             </div>
                             <div className="col-md-7">
                                 <ul className="nav navbar-nav">
-                                    <li className="active"><a href="#">Link</a></li>
-                                    <li><a href="#">Link</a></li>
+                                    <li className="active"><a href="#">主页</a></li>
+                                    <li><a href="#">售前管理</a></li>
+                                    <li><a href="#">数据分析</a></li>
+                                    <li><a href="#">人工智能</a></li>
+                                    <li><a href="#">区块链</a></li>
+                                    <li><a href="#">关于我们</a></li>
+                                </ul>
+                            </div>
+                            <div className="col-md-7">
+                                <ul className="nav navbar-nav">
+                                    <li className="active"><a href="#">主页</a></li>
+
                                 </ul>
                             </div>
                             <div className="col-md-4">
