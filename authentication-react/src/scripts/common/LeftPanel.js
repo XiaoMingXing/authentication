@@ -26,6 +26,7 @@ class LeftPanel extends Component {
                 <li className="list-group-item">
                     <h4 className="list-group-item-heading">
                         <span>物流可视化</span>
+                        <span className="badge pull-right">0</span>
                     </h4>
                     <p className="list-group-item-text">
                     </p>

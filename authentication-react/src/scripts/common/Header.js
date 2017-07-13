@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import logo from "./logo.svg";
+import "./Header.css";
 
 class Header extends Component {
 
@@ -13,7 +14,7 @@ class Header extends Component {
                                     <img src={logo} className="brand" alt="Brand"/>
                                 </a>
                             </div>
-                            <div className="col-md-7">
+                            <div className="col-md-6">
                                 <ul className="nav navbar-nav">
                                     <li><a href="#">主页</a></li>
                                     <li><a href="#">售前管理</a></li>
@@ -23,13 +24,17 @@ class Header extends Component {
                                     <li><a href="#">关于我们</a></li>
                                 </ul>
                             </div>
-                            <div className="col-md-4">
+                            <div className="col-md-3 searchFrom">
                                 <form className="navbar-form navbar-left" role="search">
                                     <div className="form-group">
                                         <input type="text" className="form-control" placeholder="Search"/>
                                     </div>
                                     <button type="submit" className="btn btn-default">Submit</button>
                                 </form>
+                            </div>
+                            <div className="col-md-2 signBtns">
+                                <button type="button" className="btn btn-default navbar-btn">Sign in</button>
+                                <button type="button" className="btn btn-default navbar-btn">Sign up</button>
                             </div>
                         </div>
                     </div>
