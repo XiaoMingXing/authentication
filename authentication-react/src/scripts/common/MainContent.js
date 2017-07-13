@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import SupplyChainForecast from "../chart/SupplyChainForecast";
 
 class MainContent extends Component {
 
@@ -9,7 +10,7 @@ class MainContent extends Component {
                     <h3 className="panel-title">Panel title</h3>
                 </div>
                 <div className="panel-body">
-                    Panel content
+                    <SupplyChainForecast />
                 </div>
             </div>
         </div>);
