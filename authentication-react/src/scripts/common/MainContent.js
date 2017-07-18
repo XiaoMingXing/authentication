@@ -13,6 +13,7 @@ class MainContent extends Component {
                     <SupplyChainForecast />
                 </div>
             </div>
+
         </div>);
     }
 }
