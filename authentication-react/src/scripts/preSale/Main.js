@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 
-class PreSaleView extends Component {
+class Main extends Component {
 
     render() {
         return (<div>
@@ -11,4 +11,4 @@ class PreSaleView extends Component {
     }
 }
 
-export default PreSaleView;
+export default Main;

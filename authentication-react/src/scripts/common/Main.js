@@ -1,8 +1,8 @@
 import React, {Component} from "react";
 import { Switch, Route } from 'react-router-dom'
-import DataAnalysisView from "../bigdata/DataAnalysisView";
+import BigDataMainView from "../bigdata/Main";
 import HomeView from "../common/HomeView";
-import PreSaleView from "../preSale/PreSaleView";
+import PreSaleMainView from "../preSale/Main";
 
 class Main extends Component {
 
@@ -10,8 +10,8 @@ class Main extends Component {
         return (<div>
             <Switch>
                 <Route exact path="/" component={HomeView} />
-                <Route path="/PreSaleView" component={PreSaleView} />
-                <Route path="/dataAnalysis" component={DataAnalysisView} />
+                <Route path="/preSale" component={PreSaleMainView} />
+                <Route path="/bigData" component={BigDataMainView} />
             </Switch>
 
         </div>);
