@@ -1,8 +1,7 @@
 import React, {Component} from "react";
 import "./App.css";
 import Header from "./common/Header";
-import LeftPanel from "./common/LeftPanel";
-import MainContent from "./common/MainContent";
+import Main from "./common/Main";
 
 class App extends Component {
 
@@ -13,9 +12,9 @@ class App extends Component {
                     <Header />
                 </div>
                 <div className="Content row">
-                    <LeftPanel />
-                    <MainContent />
+                    <Main />
                 </div>
+
             </div>
         );
     }

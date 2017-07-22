@@ -1,11 +1,13 @@
 import React, {Component} from "react";
 import logo from "./logo.svg";
 import "./Header.css";
+import {Link} from "react-router-dom";
 
-class Header extends Component {
+class Main extends Component {
 
     render() {
-        return (<div>
+        return (
+            <div>
                 <nav className="navbar navbar-default">
                     <div className="container-fluid">
                         <div>
@@ -16,12 +18,12 @@ class Header extends Component {
                             </div>
                             <div className="col-md-6">
                                 <ul className="nav navbar-nav">
-                                    <li><a href="#">主页</a></li>
-                                    <li><a href="#">售前管理</a></li>
-                                    <li className="active"><a href="#">数据分析</a></li>
-                                    <li><a href="#">人工智能</a></li>
-                                    <li><a href="#">区块链</a></li>
-                                    <li><a href="#">关于我们</a></li>
+                                    <li><Link to="/">主页</Link></li>
+                                    <li><Link to="/PreSaleView">售前管理</Link></li>
+                                    <li><Link to="/dataAnalysis">数据分析</Link></li>
+                                    <li><Link to="/ai">人工智能</Link></li>
+                                    <li><Link to="/blockChain">区块链</Link></li>
+                                    <li><Link to="/about">关于我们</Link></li>
                                 </ul>
                             </div>
                             <div className="col-md-3 searchFrom">
@@ -39,9 +41,7 @@ class Header extends Component {
                         </div>
                     </div>
                 </nav>
-            </div>
-        );
+            </div>);
     }
 }
-
-export default Header;
+export default Main;
