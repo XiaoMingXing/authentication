@@ -3,7 +3,9 @@ package com.everydots.analysis.spark.csv;
 
 import com.opencsv.bean.CsvBind;
 
-public class SaleRecord {
+import java.io.Serializable;
+
+public class SaleRecord implements Serializable {
 
     @CsvBind
     private String so;
