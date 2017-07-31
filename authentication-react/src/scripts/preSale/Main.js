@@ -1,9 +1,9 @@
 import React, {Component} from "react";
-import {ListGroup, ListGroupItem} from "react-bootstrap";
 
 class Main extends Component {
 
     render() {
+        var rows = this.fetchRows();
         return (<div>
 
             <h1>Do some pre-sale display !!</h1>
@@ -17,10 +17,23 @@ class Main extends Component {
             </div>
 
             <div className="table">
-
+                <table>
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Price
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>{rows}</tbody>
+                </table>
             </div>
 
         </div>);
+    };
+
+    fetchRows() {
+       return "Syu";
     }
 }
 
