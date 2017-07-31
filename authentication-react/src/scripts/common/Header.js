@@ -3,7 +3,7 @@ import logo from "./logo.svg";
 import "./Header.css";
 import {Link} from "react-router-dom";
 
-class Main extends Component {
+class Header extends Component {
 
     render() {
         return (
@@ -12,9 +12,11 @@ class Main extends Component {
                     <div className="container-fluid">
                         <div>
                             <div className="col-md-1">
-                                <a className="navbar-brand" href="#">
-                                    <img src={logo} className="brand" alt="Brand"/>
-                                </a>
+                                <Link to="/">
+                                    <a className="navbar-brand">
+                                        <img src={logo} className="brand" alt="Brand"/>
+                                    </a>
+                                </Link>
                             </div>
                             <div className="col-md-6">
                                 <ul className="nav navbar-nav">
@@ -44,4 +46,4 @@ class Main extends Component {
             </div>);
     }
 }
-export default Main;
+export default Header;

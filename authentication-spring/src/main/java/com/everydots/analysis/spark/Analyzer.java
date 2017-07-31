@@ -2,6 +2,7 @@ package com.everydots.analysis.spark;
 
 import com.everydots.analysis.spark.bean.CostRecord;
 import com.everydots.analysis.spark.formatter.ZipFileInputFormat;
+import com.everydots.cost.common.Constants;
 import com.opencsv.CSVReader;
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.HeaderColumnNameMappingStrategy;
@@ -20,11 +21,9 @@ public class Analyzer {
 
 
     public static void main(String[] args) throws FileNotFoundException {
-        SparkConf config = new SparkConf()
-                .setMaster("local")
-                .setAppName("Cost");
-        JavaSparkContext sc = new JavaSparkContext(config);
-        String fileName = "reports/141924789642-aws-billing-detailed-line-items-with-resources-and-tags-ACTS-2014-11.csv.zip";
+        JavaSparkContext sc = SparkFactory.getLocalEnv("Cost");
+        /*String fileName = "reports/141924789642-aws-billing-detailed-line-items-with-resources-and-tags-ACTS-2014-11.csv.zip";*/
+        String fileName = "reports/BasicReport_20170718_034034_66359.csv";
         String filePath = Analyzer.class.getClassLoader().getResource(fileName).getPath();
         JavaPairRDD<Text, BytesWritable> javaPairRDD = sc.newAPIHadoopFile(filePath, ZipFileInputFormat.class,
                 Text.class, BytesWritable.class, new Configuration());
