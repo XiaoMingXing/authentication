@@ -12,9 +12,11 @@ class Header extends Component {
                     <div className="container-fluid">
                         <div>
                             <div className="col-md-1">
-                                <a className="navbar-brand" href="#">
-                                    <img src={logo} className="brand" alt="Brand"/>
-                                </a>
+                                <Link to="/">
+                                    <a className="navbar-brand">
+                                        <img src={logo} className="brand" alt="Brand"/>
+                                    </a>
+                                </Link>
                             </div>
                             <div className="col-md-6">
                                 <ul className="nav navbar-nav">
