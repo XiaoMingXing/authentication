@@ -3,12 +3,23 @@ import React, {Component} from "react";
 class Main extends Component {
 
     render() {
+        var rows = this.fetchRows();
         return (<div>
-
-            <h1>Do some pre-sale display !!</h1>
-
+            <table>
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Price
+                    </th>
+                </tr>
+                </thead>
+                <tbody>{rows}</tbody>
+            </table>
         </div>);
+    };
+
+    fetchRows() {
+       return "Syu";
     }
 }
-
 export default Main;

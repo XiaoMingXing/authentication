@@ -3,7 +3,7 @@ import logo from "./logo.svg";
 import "./Header.css";
 import {Link} from "react-router-dom";
 
-class Main extends Component {
+class Header extends Component {
 
     render() {
         return (
@@ -44,4 +44,4 @@ class Main extends Component {
             </div>);
     }
 }
-export default Main;
+export default Header;
