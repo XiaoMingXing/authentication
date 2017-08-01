@@ -14,9 +14,12 @@ public class CsvAnalysisJobTest {
     public void parseDataWithCSV() throws Exception {
         CsvAnalysisJob csvAnalysisJob = new CsvAnalysisJob();
         String csvFile = "reports/BasicReport_20170718_034034_66359.csv";
-        List<Tuple2> list = csvAnalysisJob.parseData(this.getClass().getClassLoader().getResource(csvFile).getPath(),
-                StrategyFactory.getLenoveStrategy());
-        list.subList(0, 5).forEach(tuple2 -> System.out.println(tuple2._1().toString() + "  :  " + tuple2._2().toString()));
+        List<SaleRecord> list = csvAnalysisJob
+                .parseData(this.getClass().getClassLoader().getResource(csvFile).getPath(),
+                        StrategyFactory.getLenoveStrategy());
+        List<Tuple2<String, Integer>> nRepairMobiles = csvAnalysisJob.topNRepairMobiles(5, list);
+        SaleDao saleDao = new SaleDao();
+        saleDao.insertRecords(Converters.convertForSale(nRepairMobiles));
     }
 
 }

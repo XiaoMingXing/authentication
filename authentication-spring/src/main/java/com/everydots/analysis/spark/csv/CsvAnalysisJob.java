@@ -14,19 +14,24 @@ import scala.Tuple2;
 import java.io.FileReader;
 import java.util.List;
 
-public class CsvAnalysisJob {
+class CsvAnalysisJob {
 
-    public List parseData(String filePath, HeaderColumnNameTranslateMappingStrategy strategy) throws Exception {
-        JavaSparkContext sc = SparkFactory.getLocalEnv(Constants.Lenove);
+    List parseData(String filePath, HeaderColumnNameTranslateMappingStrategy strategy) throws Exception {
         CSVReader reader = new CSVReader(new FileReader(filePath));
         CsvToBean<SaleRecord> csvToBean = new CsvToBean<>();
-        List<SaleRecord> beanList = csvToBean.parse(strategy, reader);
+        return csvToBean.parse(strategy, reader);
+    }
 
-        JavaPairRDD<String, Integer> counts = sc.parallelize(beanList)
-                .mapToPair((PairFunction<SaleRecord, String, Integer>) saleRecord ->
-                        new Tuple2<>(saleRecord.getProduct(), 1))
+    List topNRepairMobiles(int n, List<SaleRecord> repairRecords) {
+        JavaSparkContext sc = SparkFactory.getLocalEnv(Constants.Lenove);
+        JavaPairRDD<String, Integer> pairRDD = sc.parallelize(repairRecords)
+                .mapToPair((PairFunction<SaleRecord, String, Integer>) saleRecord -> new Tuple2<>(saleRecord.getProduct(), 1))
                 .reduceByKey((Function2<Integer, Integer, Integer>) (integer, integer2) -> integer + integer2);
-        return counts.collect();
+        List<Tuple2<String, Integer>> topNList = pairRDD.collect().subList(0, n);
+        topNList.stream()
+                .sorted((tuple1, tuple2) -> Integer.compare(Integer.parseInt(tuple1._2().toString()),
+                        Integer.parseInt(tuple2._2().toString())));
+        return topNList;
     }
 
 }
