@@ -1,7 +1,6 @@
 package com.everydots.analysis.spark.csv;
 
 import org.junit.Test;
-import scala.Tuple2;
 
 import java.util.List;
 
@@ -14,12 +13,35 @@ public class CsvAnalysisJobTest {
     public void parseDataWithCSV() throws Exception {
         CsvAnalysisJob csvAnalysisJob = new CsvAnalysisJob();
         String csvFile = "reports/BasicReport_20170718_034034_66359.csv";
-        List<SaleRecord> list = csvAnalysisJob
+        List<RepairRecord> list = csvAnalysisJob
                 .parseData(this.getClass().getClassLoader().getResource(csvFile).getPath(),
                         StrategyFactory.getLenoveStrategy());
-        List<Tuple2<String, Integer>> nRepairMobiles = csvAnalysisJob.topNRepairMobiles(5, list);
-        SaleDao saleDao = new SaleDao();
-        saleDao.insertRecords(Converters.convertForSale(nRepairMobiles));
+        List<KeyValueRecord> nRepairMobiles = csvAnalysisJob.topNRepairMobiles(list, -1);
+        nRepairMobiles
+                .stream()
+                .forEach(nRepairMobile -> System.out.println(nRepairMobile.getKey() + ":" + nRepairMobile.getNumericValue()));
     }
 
+
+    @Test
+    public void testStationTimeLineData() throws Exception {
+        CsvAnalysisJob csvAnalysisJob = new CsvAnalysisJob();
+        String csvFile = "reports/all_in_one.csv";
+        List<RepairRecord> list = csvAnalysisJob
+                .parseData(this.getClass().getClassLoader().getResource(csvFile).getPath(),
+                        StrategyFactory.getLenoveStrategy());
+        SearchCondition searchCondition = new SearchCondition();
+        String productModel = "K50a40";
+        searchCondition.setProductModel(productModel);
+        String problemCode = "RF Performance";
+        searchCondition.setProblemCode(problemCode);
+        //searchCondition.setProductModel("A1000");
+
+        List<KeyValueRecord> nRepairMobiles = csvAnalysisJob.repairStationTimeLine(list, searchCondition);
+        for (int index = 0; index < nRepairMobiles.size(); index++) {
+            KeyValueRecord nRepairMobile = nRepairMobiles.get(index);
+            System.out.println(" { name: '" + nRepairMobile.getKey() + "','" +
+                    problemCode + "':" + nRepairMobile.getNumericValue() + "},");
+        }
+    }
 }

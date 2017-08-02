@@ -9,7 +9,7 @@ import java.util.List;
 
 public class SaleDao {
 
-    public void insertRecords(List<SaleStatistic> sales) {
+    public void insertRecords(List<KeyValueRecord> sales) {
         MongoClient mongoClient = new MongoClient();
         MongoDatabase database = mongoClient.getDatabase("test");
         MongoCollection<Document> topNTables = database.getCollection("topNTables");

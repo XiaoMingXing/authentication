@@ -48,8 +48,8 @@ class Main extends Component {
             <div className="col-md-8">
                 <h2>This is data analysis page!</h2>
                 <Switch>
-                    <Route exact path='/bigData' component={Storage}/>
-                    <Route path='/bigData/sale' component={Sale}/>
+                    <Route exact path='/bigData' component={Sale}/>
+                    <Route path='/bigData/storage' component={Storage}/>
                     <Route path='/bigData/logistic' component={Logistic}/>
                 </Switch>
             </div>
