@@ -44,4 +44,21 @@ public class CsvAnalysisJobTest {
                     problemCode + "':" + nRepairMobile.getNumericValue() + "},");
         }
     }
+
+    @Test
+    public void testRepairProblemCode() throws Exception {
+        CsvAnalysisJob csvAnalysisJob = new CsvAnalysisJob();
+        String csvFile = "reports/all_in_one.csv";
+        //String csvFile = "reports/BasicReport_20170718_034034_66359.csv";
+        List<RepairRecord> list = csvAnalysisJob
+                .parseData(this.getClass().getClassLoader().getResource(csvFile).getPath(),
+                        StrategyFactory.getLenoveStrategy());
+        String[] problemCode = {"Software", "Charging", "Touch Screen"};
+        List<KeyValueRecord> nRepairMobiles = csvAnalysisJob.stationRepairTime(list, problemCode[1]);
+        for (int index = 0; index < nRepairMobiles.size(); index++) {
+            KeyValueRecord nRepairMobile = nRepairMobiles.get(index);
+            System.out.println(" { name: '" + nRepairMobile.getKey() + "天','" +
+                    problemCode[1] + "':" + Converters.count(nRepairMobile.getStringValue()) + "},");
+        }
+    }
 }

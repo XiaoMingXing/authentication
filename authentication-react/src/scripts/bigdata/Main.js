@@ -14,7 +14,7 @@ class Main extends Component {
                     <Link to="/bigData">
                         <li className="list-group-item active">
                             <h4 className="list-group-item-heading">
-                                <span>库存预测</span>
+                                <span>数据预测</span>
                                 <span className="badge pull-right">14</span>
                             </h4>
                             <p className="list-group-item-text">
@@ -25,7 +25,7 @@ class Main extends Component {
                     <Link to="/bigData/sale">
                         <li className="list-group-item">
                             <h4 className="list-group-item-heading">
-                                <span>销量预测</span>
+                                <span>数据统计分析</span>
                                 <span className="badge pull-right">14</span>
                             </h4>
                             <p className="list-group-item-text">
@@ -36,7 +36,7 @@ class Main extends Component {
                     <Link to="/bigData/logistic">
                         <li className="list-group-item">
                             <h4 className="list-group-item-heading">
-                                <span>物流可视化</span>
+                                <span>数据治理</span>
                                 <span className="badge pull-right">0</span>
                             </h4>
                             <p className="list-group-item-text">
@@ -46,10 +46,9 @@ class Main extends Component {
                 </ul>
             </div>
             <div className="col-md-8">
-                <h2>This is data analysis page!</h2>
                 <Switch>
-                    <Route exact path='/bigData' component={Sale}/>
-                    <Route path='/bigData/storage' component={Storage}/>
+                    <Route exact path='/bigData' component={Storage}/>
+                    <Route path='/bigData/sale' component={Sale}/>
                     <Route path='/bigData/logistic' component={Logistic}/>
                 </Switch>
             </div>

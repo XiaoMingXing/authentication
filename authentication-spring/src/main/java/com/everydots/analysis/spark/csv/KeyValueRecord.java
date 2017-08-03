@@ -11,6 +11,8 @@ public class KeyValueRecord implements Serializable {
 
     private double numericValue;
 
+    private String stringValue;
+
     public KeyValueRecord() {
         this.id = UUID.randomUUID().toString().replace("-", "");
     }
@@ -39,6 +41,14 @@ public class KeyValueRecord implements Serializable {
         this.numericValue = numericValue;
     }
 
+    public String getStringValue() {
+        return stringValue;
+    }
+
+    public void setStringValue(String stringValue) {
+        this.stringValue = stringValue;
+    }
+
     public KeyValueRecord withKey(String key) {
         this.key = key;
         return this;
@@ -46,6 +56,11 @@ public class KeyValueRecord implements Serializable {
 
     public KeyValueRecord withNumericValue(Double value) {
         this.numericValue = value;
+        return this;
+    }
+
+    public KeyValueRecord withStringValue(String value) {
+        this.stringValue = value;
         return this;
     }
 }

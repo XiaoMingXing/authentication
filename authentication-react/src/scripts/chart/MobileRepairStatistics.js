@@ -2408,10 +2408,13 @@ class MobileRepairStatistics extends Component {
             {name: 'NEXON TECHNOLOGIES', 'RF Performance': 60.0}];
 
         this.state = {
-            product: 'K50a40',
-            problem: 'Software',
+            line: 'K50a40',
             productData: data,
+            productData2: data2,
+            productData3: data3,
             problemData: problemData,
+            problemData2: problemData2,
+            problemData3: problemData3,
             data: data
         };
 
@@ -2425,14 +2428,14 @@ class MobileRepairStatistics extends Component {
 
     changeProblem(event) {
         this.setState({
-            problem: event.target.value,
+            line: event.target.value,
             data: this.state.problemData
         });
     }
 
     changeProduct(event) {
         this.setState({
-            product: event.target.value,
+            line: event.target.value,
             data: this.state.productData
         });
     }
@@ -2470,10 +2473,24 @@ class MobileRepairStatistics extends Component {
                     <div className="col-md-3">
                         <label>手机型号: </label>
                         <select id="dropdown-size-medium"
-                                onChange={event => this.setState({
-                                    product: event.target.value,
-                                    data: this.state.productData
-                                })}>
+                                onChange={event => {
+                                    if (event.target.value === 'K50a40') {
+                                        this.setState({
+                                            line: event.target.value,
+                                            data: this.state.productData
+                                        });
+                                    } else if (event.target.value === 'A6000_16G') {
+                                        this.setState({
+                                            line: event.target.value,
+                                            data: this.state.productData2
+                                        })
+                                    } else {
+                                        this.setState({
+                                            line: event.target.value,
+                                            data: this.state.productData3
+                                        })
+                                    }
+                                }}>
                             <option key="K50a40" value="K50a40">K50a40</option>
                             <option key="A6000_16G" value="A6000_16G">A6000_16G</option>
                             <option key="A7010a48" value="A7010a48">A7010a48</option>
@@ -2482,29 +2499,41 @@ class MobileRepairStatistics extends Component {
                     <div className="col-md-5">
                         <label>问题类型: </label>
                         <select id="dropdown-size-medium"
-                                onChange={event => this.setState({
-                                    problem: event.target.value,
-                                    data: this.state.problemData
-                                })}>
-                            <option key="None" value="">None</option>
+                                onChange={event => {
+                                    if (event.target.value === 'Software') {
+                                        this.setState({
+                                            line: event.target.value,
+                                            data: this.state.problemData
+                                        });
+                                    } else if (event.target.value === 'Charging') {
+                                        this.setState({
+                                            line: event.target.value,
+                                            data: this.state.problemData2
+                                        })
+                                    } else {
+                                        this.setState({
+                                            line: event.target.value,
+                                            data: this.state.problemData3
+                                        })
+                                    }
+                                }}>
                             <option key="Software" value="Software">Software</option>
                             <option key="Charging" value="Charging">Charging</option>
                             <option key="RF Performance" value="RF Performance">RF Performance</option>
                         </select>
                     </div>
-                </div >
+                </div>
 
                 <h3> 维修店数量：{this.state.data.length}</h3>
 
-                <LineChart width={900} height={500} data={this.state.data}
+                <LineChart width={1000} height={500} data={this.state.data}
                            margin={{top: 5, right: 30, left: 20, bottom: 5}}>
                     <XAxis dataKey="name"/>
                     <YAxis />
                     <CartesianGrid strokeDasharray="3 3"/>
                     <Tooltip/>
                     <Legend />
-                    <Line type="monotone" dataKey={this.state.product} stroke="#8884d8" activeDot={{r: 4}}/>
-                    <Line type="monotone" dataKey={this.state.problem} stroke="#ccc" activeDot={{r: 4}}/>
+                    <Line type="monotone" dataKey={this.state.line} stroke="#8884d8" activeDot={{r: 4}}/>
                 </LineChart>
 
             </div>
