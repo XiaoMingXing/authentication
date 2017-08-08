@@ -50,7 +50,9 @@ class CsvAnalysisJob {
                         .withStringValue(tuple2._2))
                 .collect();
 
+
     }
+
 
     List repairStationTimeLine(List<RepairRecord> repairRecords,
                                SearchCondition searchCondition) {
@@ -67,12 +69,15 @@ class CsvAnalysisJob {
         }
         return parallelize
                 .filter((Function<RepairRecord, Boolean>) v1 ->
-                        StringUtils.isNotBlank(v1.getRepairStation()) && v1.getRepairTime() != -1)
+                        StringUtils.isNotBlank(v1.getRepairStation())
+                                && v1.getRepairTime() != -1
+                                && v1.getSo().startsWith("SO"))
                 .mapToPair((PairFunction<RepairRecord, String, Integer>)
                         repairRecord -> new Tuple2<>(repairRecord.getRepairStation(), repairRecord.getRepairTime()))
                 .mapValues((Function<Integer, Tuple2<Integer, Integer>>) v1 -> new Tuple2<>(v1, 1))
                 .reduceByKey((tuple1, tuple2) -> new Tuple2<>(tuple1._1 + tuple2._1, tuple1._2 + tuple2._2))
                 .mapToPair(getAverageByKey)
+                .filter((Function<Tuple2<String, Double>, Boolean>) v1 -> v1._2 >= 0)
                 .map((Function<Tuple2<String, Double>, KeyValueRecord>) tuple2 -> new KeyValueRecord()
                         .withKey(tuple2._1)
                         .withNumericValue(tuple2._2))
@@ -85,6 +90,9 @@ class CsvAnalysisJob {
         int total = val._1;
         int count = val._2;
         double average = Math.round((double) total / (double) count * 100) / 100.0d;
+        if (count < 200) {
+            average = -2d;
+        }
         return new Tuple2<>(tuple._1, average);
     };
 

@@ -18,6 +18,11 @@ public class StrategyFactory {
         columnMapping.put("Station Name", "repairStation");
         columnMapping.put("Station Code", "repairStationCode");
         columnMapping.put("Problem Code Description", "repairPart");
+        columnMapping.put("Replace Part 1 Status", "replacePartStatus");
+        columnMapping.put("Replacement Part 1 Name", "replacePartName");
+        columnMapping.put("Repair Level", "repairLevel");
+        columnMapping.put("Apply for Parts Time", "partApplyTime");
+        columnMapping.put("Replacement Part Number", "replacePartNumber");
         strategy.setColumnMapping(columnMapping);
 
         return strategy;

@@ -2,8 +2,23 @@ import React, {Component} from "react";
 import logo from "./logo.svg";
 import "./Header.css";
 import {Link} from "react-router-dom";
+import {Modal, Button} from "react-bootstrap";
+import Login from "../auth/Login";
 
 class Header extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {showModal: false};
+    }
+
+    close = () => {
+        this.setState({showModal: false});
+    };
+
+    open = () => {
+        this.setState({showModal: true});
+    };
 
     render() {
         return (
@@ -37,13 +52,29 @@ class Header extends Component {
                                 </form>
                             </div>
                             <div className="col-md-2 signBtns">
-                                <button type="button" className="btn btn-default navbar-btn">Sign in</button>
+                                <button type="button" className="btn btn-default navbar-btn" onClick={this.open}>
+                                    Sign in
+                                </button>
                                 <button type="button" className="btn btn-default navbar-btn">Sign up</button>
+                            </div>
+                            <div className="signinModal">
+                                <Modal show={this.state.showModal} onHide={this.close}>
+                                    <Modal.Header closeButton>
+                                        <Modal.Title>Login</Modal.Title>
+                                    </Modal.Header>
+                                    <Modal.Body>
+                                        <Login />
+                                    </Modal.Body>
+                                    <Modal.Footer>
+                                        <Button onClick={this.close}>Close</Button>
+                                    </Modal.Footer>
+                                </Modal>
                             </div>
                         </div>
                     </div>
                 </nav>
-            </div>);
+            </div>
+        );
     }
 }
 export default Header;

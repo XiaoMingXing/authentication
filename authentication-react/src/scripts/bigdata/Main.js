@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import Storage from "./forecast/Storage";
 import Logistic from "./forecast/Logistic";
-import Sale from "./forecast/Sale";
+import StationPortrait from "./statistics/StationPortrait";
 import { Switch, Route, Link } from 'react-router-dom'
 
 
@@ -14,7 +14,7 @@ class Main extends Component {
                     <Link to="/bigData">
                         <li className="list-group-item active">
                             <h4 className="list-group-item-heading">
-                                <span>数据预测</span>
+                                <span>数据统计分析</span>
                                 <span className="badge pull-right">14</span>
                             </h4>
                             <p className="list-group-item-text">
@@ -22,10 +22,10 @@ class Main extends Component {
                             </p>
                         </li>
                     </Link>
-                    <Link to="/bigData/sale">
+                    <Link to="/bigData/storage">
                         <li className="list-group-item">
                             <h4 className="list-group-item-heading">
-                                <span>数据统计分析</span>
+                                <span>数据预测</span>
                                 <span className="badge pull-right">14</span>
                             </h4>
                             <p className="list-group-item-text">
@@ -47,8 +47,8 @@ class Main extends Component {
             </div>
             <div className="col-md-8">
                 <Switch>
-                    <Route exact path='/bigData' component={Storage}/>
-                    <Route path='/bigData/sale' component={Sale}/>
+                    <Route exact path='/bigData' component={StationPortrait}/>
+                    <Route path='/bigData/storage' component={Storage}/>
                     <Route path='/bigData/logistic' component={Logistic}/>
                 </Switch>
             </div>

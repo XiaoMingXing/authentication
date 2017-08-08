@@ -28,6 +28,65 @@ public class RepairRecord implements Serializable {
     @CsvBind
     private String repairPart;
 
+    @CsvBind
+    private String repairLevel;
+
+    @CsvBind
+    private String replacePartStatus;
+
+    @CsvBind
+    private String replacePartName;
+
+    @CsvBind
+    private String problemName;
+
+    @CsvBind
+    private String partApplyTime;
+
+    @CsvBind
+    private String replacePartNumber;
+
+
+    public String getPartApplyTime() {
+        return partApplyTime;
+    }
+
+    public void setPartApplyTime(String partApplyTime) {
+        this.partApplyTime = partApplyTime;
+    }
+
+    public String getProblemName() {
+        return problemName;
+    }
+
+    public void setProblemName(String problemName) {
+        this.problemName = problemName;
+    }
+
+    public String getRepairLevel() {
+        return repairLevel;
+    }
+
+    public void setRepairLevel(String repairLevel) {
+        this.repairLevel = repairLevel;
+    }
+
+    public String getReplacePartStatus() {
+        return replacePartStatus;
+    }
+
+    public void setReplacePartStatus(String replacePartStatus) {
+        this.replacePartStatus = replacePartStatus;
+    }
+
+    public String getReplacePartName() {
+        return replacePartName;
+    }
+
+    public void setReplacePartName(String replacePartName) {
+        this.replacePartName = replacePartName;
+    }
+
     public String getSo() {
         return so;
     }
@@ -82,5 +141,13 @@ public class RepairRecord implements Serializable {
 
     public void setRepairStationCode(String repairStationCode) {
         this.repairStationCode = repairStationCode;
+    }
+
+    public String getReplacePartNumber() {
+        return replacePartNumber;
+    }
+
+    public void setReplacePartNumber(String replacePartNumber) {
+        this.replacePartNumber = replacePartNumber;
     }
 }
