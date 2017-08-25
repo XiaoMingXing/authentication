@@ -1,6 +1,7 @@
 package com.everydots.analysis.spark.csv.library;
 
 import com.everydots.analysis.spark.enums.Project;
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -10,6 +11,11 @@ public class AnalysisTest {
 
 
     private final Analysis analysis = new Analysis(Project.LENOVO);
+
+    @Before
+    public void before() throws Exception {
+        analysis.setxAxis("StationName");
+    }
 
     @Test
     public void process() throws Exception {
@@ -21,7 +27,10 @@ public class AnalysisTest {
         analysis.process();
         //analysis.count();
         //analysis.checkMetadata();
-        analysis.stationStatistics();
+        //analysis.stationCommonStatistics("Model", null);
+        analysis.stationOpenCase(11);
+
+
         analysis.getSparkSession().close();
     }
 

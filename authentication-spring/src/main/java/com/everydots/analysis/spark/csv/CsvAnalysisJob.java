@@ -27,7 +27,7 @@ class CsvAnalysisJob {
     List topNRepairMobiles(List<RepairRecord> repairRecords, int n) {
         JavaSparkContext sc = SparkFactory.getLocalEnv(Constants.Lenove);
         List<KeyValueRecord> statistics = sc.parallelize(repairRecords)
-                .mapToPair((PairFunction<RepairRecord, String, Integer>) repairRecord -> new Tuple2<>(repairRecord.getProduct(), 1))
+                .mapToPair((PairFunction<RepairRecord, String, Integer>) repairRecord -> new Tuple2<String, Integer>(repairRecord.getProduct(), 1))
                 .reduceByKey((Function2<Integer, Integer, Integer>) (integer, integer2) -> integer + integer2)
                 .map((Function<Tuple2<String, Integer>, KeyValueRecord>) tuple2 -> new KeyValueRecord()
                         .withKey(tuple2._1)
@@ -39,10 +39,11 @@ class CsvAnalysisJob {
 
     List stationRepairTime(List<RepairRecord> repairRecords, String problemCode) {
         JavaSparkContext sc = SparkFactory.getLocalEnv(Constants.Lenove);
-        return sc.parallelize(repairRecords)
+        return sc
+                .parallelize(repairRecords)
                 .filter((Function<RepairRecord, Boolean>) repairRecord -> problemCode.equals(repairRecord.getRepairPart()))
                 .mapToPair((PairFunction<RepairRecord, Integer, String>) repairRecord ->
-                        new Tuple2<>(repairRecord.getRepairTime(), repairRecord.getRepairStation()))
+                        new Tuple2<Integer, String>(repairRecord.getRepairTime(), repairRecord.getRepairStation()))
                 .reduceByKey((Function2<String, String, String>) (v1, v2) -> v1 + "," + v2)
                 .sortByKey(true)
                 .map((Function<Tuple2<Integer, String>, KeyValueRecord>) tuple2 -> new KeyValueRecord()
@@ -73,7 +74,7 @@ class CsvAnalysisJob {
                                 && v1.getRepairTime() != -1
                                 && v1.getSo().startsWith("SO"))
                 .mapToPair((PairFunction<RepairRecord, String, Integer>)
-                        repairRecord -> new Tuple2<>(repairRecord.getRepairStation(), repairRecord.getRepairTime()))
+                        repairRecord -> new Tuple2<String, Integer>(repairRecord.getRepairStation(), repairRecord.getRepairTime()))
                 .mapValues((Function<Integer, Tuple2<Integer, Integer>>) v1 -> new Tuple2<>(v1, 1))
                 .reduceByKey((tuple1, tuple2) -> new Tuple2<>(tuple1._1 + tuple2._1, tuple1._2 + tuple2._2))
                 .mapToPair(getAverageByKey)
@@ -93,7 +94,7 @@ class CsvAnalysisJob {
         if (count < 200) {
             average = -2d;
         }
-        return new Tuple2<>(tuple._1, average);
+        return new Tuple2<String, Double>(tuple._1, average);
     };
 
 }

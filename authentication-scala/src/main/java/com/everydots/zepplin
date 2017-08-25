@@ -1,0 +1,33 @@
+import org.apache.spark.sql.SparkSession;
+val spark = SparkSession
+  .builder()
+  .appName("Spark SQL basic example")
+  .getOrCreate();
+
+val df = spark.read.format("csv")
+            .option("header","true")
+            .option("inferSchema","true")
+            .load("/Users/mxxiao/projects/authentication/authentication-spring/src/main/resources/reports/BasicReport_20170718_034034_66359.csv");
+
+
+df.filter($"R-TAT(BD)" > 0)
+  .select(df.columns.map(c => col(c).alias(c.replaceAll("[ ()-]",""))):_*);
+
+
+
+
+Graph1:
+
+%sql
+select StationName, COUNT(*) total,AVG(RTATBD) average
+from mobileRepairs
+GROUP BY StationName
+ORDER BY average desc
+limit 20
+
+%sql
+select Model, COUNT(*) total, AVG(RTATBD) average
+from mobileRepairs
+GROUP BY Model
+ORDER BY average desc
+limit 20

@@ -2,7 +2,7 @@ package com.everydots.analysis.spark.enums;
 
 public enum Project {
 
-    LENOVO("lenovo mobile repair project", "reports/BasicReport_20170718_034034_66359.csv"),
+    LENOVO("lenovo mobile repair project", "reports/all_in_one.csv"),
     SHELL("shell delivery project", "");
 
     private String appName;

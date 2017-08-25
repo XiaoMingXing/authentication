@@ -11,6 +11,7 @@ import org.apache.spark.sql.SparkSession;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 class Analysis implements Serializable {
 
@@ -21,6 +22,10 @@ class Analysis implements Serializable {
     private SQLContext sqlContext;
 
     private Project project = Project.LENOVO;
+
+    private String xAxis = "StationName";
+
+    private String yAxis = "RTATBD";
 
     Analysis() {
         this.sparkSession = SparkFactory.getLocalSQLEnv(project.getAppName());
@@ -35,6 +40,14 @@ class Analysis implements Serializable {
         return sparkSession;
     }
 
+    public String getxAxis() {
+        return xAxis;
+    }
+
+    public void setxAxis(String xAxis) {
+        this.xAxis = xAxis;
+    }
+
     void process() {
         String path = this.getClass().getClassLoader().getResource(project.getDataPath()).getPath();
         Dataset<Row> df = sparkSession.read()
@@ -46,11 +59,10 @@ class Analysis implements Serializable {
                 .map(column -> column.replaceAll("[ ()-]", "")).toArray(String[]::new);
         Dataset<Row> toDF = df.toDF(colNames);
         toDF
-                .select(toDF.col("StationName"),
-                        toDF.col("RTATBD").cast("integer"))
-                .filter(toDF.col("RTATBD").$greater$eq(0))
+                .select(toDF.col(this.getxAxis()),
+                        toDF.col(this.yAxis).cast("integer"))
+                .filter(toDF.col(this.yAxis).$greater$eq(0))
                 .createOrReplaceTempView(MOBILE_REPAIRS_TABLE);
-
     }
 
     void count() {
@@ -60,11 +72,36 @@ class Analysis implements Serializable {
         Printer.printRow(rows);
     }
 
-    void stationStatistics() {
+    void stationCommonStatistics(Map<String, String> conditions) {
+        String sql = "select " + this.getxAxis() + ", COUNT(*) total, AVG(" + this.yAxis + ") average " +
+                "from %s ";
+        if (conditions != null && conditions.keySet().size() != 0) {
+            sql += " where ";
+            for (String condition : conditions.keySet()) {
+                sql += (condition + " " + conditions.get(condition));
+            }
+        }
+        sql += "GROUP BY " + this.getxAxis() + " ORDER BY average desc";
         List<Row> rows = sparkSession
-                .sql(formatSql("select StationName, COUNT(*) total, SUM(RTATBD) sum, AVG(RTATBD) average" +
-                        " from %s GROUP BY StationName ORDER BY average")).collectAsList();
+                .sql(formatSql(sql))
+                .select(this.getxAxis(), "average")
+                .collectAsList();
+        Printer.printRow(rows);
+    }
 
+    void mobileSpecifiecStatistics() {
+        List<Row> rows = sparkSession
+                .sql(formatSql("select " + this.getxAxis() + ", COUNT(*) total, AVG(" + this.yAxis + ") average" +
+                        " from %s GROUP BY " + this.getxAxis() + " ORDER BY average"))
+                .select(this.getxAxis(), "average")
+                .collectAsList();
+        Printer.printRow(rows);
+    }
+
+    void stationOpenCase(int openCaseNums) {
+        List<Row> rows = sparkSession.sql(formatSql("select " + this.getxAxis() + ", count(*) total" +
+                " from %s where " + this.yAxis + " >= " + openCaseNums + " GROUP BY " + this.getxAxis()))
+                .collectAsList();
         Printer.printRow(rows);
     }
 
@@ -81,3 +118,7 @@ class Analysis implements Serializable {
         return sql.replace("%s", MOBILE_REPAIRS_TABLE);
     }
 }
+
+
+
+

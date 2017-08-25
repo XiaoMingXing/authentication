@@ -27,10 +27,8 @@ class Header extends Component {
                     <div className="container-fluid">
                         <div>
                             <div className="col-md-1">
-                                <Link to="/">
-                                    <a className="navbar-brand">
-                                        <img src={logo} className="brand" alt="Brand"/>
-                                    </a>
+                                <Link to="/" className="navbar-brand">
+                                    <img src={logo} className="brand" alt="Brand"/>
                                 </Link>
                             </div>
                             <div className="col-md-6">

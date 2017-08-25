@@ -1,10 +1,15 @@
 package com.everydots.analysis.spark.csv;
 
+import com.everydots.analysis.spark.SparkFactory;
+import com.everydots.cost.common.Constants;
+import org.apache.spark.api.java.JavaSparkContext;
+import org.apache.spark.api.java.function.Function;
 import org.bson.types.ObjectId;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static com.google.common.collect.Lists.newArrayList;
@@ -18,6 +23,8 @@ public class CsvAnalysisJobTest {
     public void parseDataWithCSV() throws Exception {
         CsvAnalysisJob csvAnalysisJob = new CsvAnalysisJob();
         String csvFile = "reports/BasicReport_20170718_034034_66359.csv";
+
+        //CZ,TR
         List<RepairRecord> list = csvAnalysisJob
                 .parseData(this.getClass().getClassLoader().getResource(csvFile).getPath(),
                         StrategyFactory.getLenoveStrategy());
@@ -25,6 +32,19 @@ public class CsvAnalysisJobTest {
         nRepairMobiles
                 .stream()
                 .forEach(nRepairMobile -> System.out.println(nRepairMobile.getKey() + ":" + nRepairMobile.getNumericValue()));
+    }
+
+
+    @Test
+    public void testParseCSV() throws Exception {
+        String csvFile = "reports/data_collection.csv";
+
+        JavaSparkContext sc = SparkFactory.getLocalEnv(Constants.Lenove);
+        sc.textFile(this.getClass().getClassLoader().getResource(csvFile).getPath())
+                .map((Function<String, String>) v1 -> Arrays.asList(v1.split(" ")).toString())
+                .collect()
+                .forEach(System.out::println);
+        ;
     }
 
     @Test

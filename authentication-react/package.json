@@ -22,5 +22,14 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "chart.js": "^2.6.0",
+    "d3": "^4.10.0",
+    "d3-geo": "^1.6.4",
+    "d3-geo-projection": "^2.2.0",
+    "datamaps": "^0.5.8",
+    "progressbar.js": "^1.0.1",
+    "topojson": "^3.0.0"
   }
 }
