@@ -1,0 +1,6 @@
+com/everydots/cloud/aws/EC2ClientTest.class
+com/everydots/cloud/aws/ELBClientTest.class
+com/everydots/cloud/aws/IAMClientTest.class
+com/everydots/cloud/aws/RDSClientTest.class
+com/everydots/cloud/aws/S3ClientTest.class
+com/everydots/utils/PropertiesUtilsTest.class

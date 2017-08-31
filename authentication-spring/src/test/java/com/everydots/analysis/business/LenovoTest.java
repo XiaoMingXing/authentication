@@ -24,6 +24,14 @@ public class LenovoTest {
         //lenovo.verify();
     }
 
+
+    @Test
+    public void stationPerformance() throws Exception {
+
+        //lenovo.rankStations();
+        lenovo.rankStationsVerify();
+    }
+
     @Test
     public void test() throws Exception {
 
@@ -64,6 +72,9 @@ public class LenovoTest {
     @Test
     public void name() throws Exception {
 
+        double result = Lenovo.computePerformance("383", "1.15", "45.0", "10.81", "41.67");
+
+        System.out.printf(result + "");
 
     }
 }

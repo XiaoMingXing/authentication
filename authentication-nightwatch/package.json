@@ -1,0 +1,16 @@
+{
+  "name": "nightwatch-demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "nightwatch",
+    "e2e:setup": "node selenium-setup"
+  },
+  "author": "Soham Kamani <sohamkamani@gmail.com> (http://sohamkamani.com)",
+  "license": "ISC",
+  "dependencies": {
+    "nightwatch": "^0.9.8",
+    "selenium-download": "^2.0.6"
+  }
+}

@@ -2,15 +2,21 @@ package com.everydots.analysis.business;
 
 import com.everydots.analysis.spark.SparkFactory;
 import com.everydots.analysis.spark.enums.Project;
+import org.apache.commons.lang.StringUtils;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
 import org.apache.spark.sql.api.java.UDF2;
 import org.apache.spark.sql.api.java.UDF3;
+import org.apache.spark.sql.api.java.UDF4;
+import org.apache.spark.sql.api.java.UDF5;
 import org.apache.spark.sql.types.DataTypes;
 import org.joda.time.DateTime;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
@@ -30,6 +36,14 @@ class Lenovo implements Serializable {
 
     public List<Row> rows;
 
+    static double MAX_CLOSE_SO = 486;
+    static double MAX_LONG_TAIL = 11.6;
+    static double MAX_RTAT_3BD = 100;
+    static double MAX_RRR_30BD = 46.91;
+    static double MAX_HVP = 88;
+
+    static final SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+
     Lenovo() {
         this.sparkSession = SparkFactory.getLocalSQLEnv(project.getAppName());
     }
@@ -45,6 +59,7 @@ class Lenovo implements Serializable {
 
 
     void dataPreProcess() {
+
         String path = this.getClass().getClassLoader().getResource(project.getDataPath()).getPath();
         Dataset<Row> df = sparkSession.read()
                 .format("com.databricks.spark.csv")
@@ -206,6 +221,119 @@ class Lenovo implements Serializable {
         } while (startCal.getTimeInMillis() < endCal.getTimeInMillis()); //excluding end date
 
         return workDays;
+    }
+
+    void rankStations() {
+
+        sparkSession.udf().register("computePerformance",
+                (UDF5<String, String, String, String, String, Double>)
+                        Lenovo::computePerformance, DataTypes.DoubleType);
+
+        sparkSession.read()
+                .format("com.databricks.spark.csv")
+                .option("header", "true")
+                .load(this.getClass().getClassLoader().getResource("reports/Station_KPI.csv").getPath())
+                .withColumn("performance", callUDF("computePerformance"
+                        , col("closeSOAmount"), col("longTail15BD"), col("RTAT3BD"), col("RRR").as("RRR30CD")
+                        , col("HVP")))
+                .write()
+                .format("com.databricks.spark.csv")
+                .option("header", "true")
+                .save("station_performance");
+    }
+
+
+    void computeValue() {
+
+        sparkSession.udf().register("computePerformance",
+                (UDF5<String, String, String, String, String, Double>)
+                        Lenovo::computePerformance, DataTypes.DoubleType);
+
+        sparkSession.read()
+                .format("com.databricks.spark.csv")
+                .option("header", "true")
+                .load(this.getClass().getClassLoader().getResource("reports/Station_KPI.csv").getPath())
+                .withColumn("performance", callUDF("computePerformance",col("closeSOAmount")
+                        , col("closeSOAmount"), col("longTail15BD"), col("RTAT3BD"), col("RRR").as("RRR30CD")
+                        , col("HVP")))
+                .write()
+                .format("com.databricks.spark.csv")
+                .option("header", "true")
+                .save("station_performance");
+    }
+
+    void rankStationsVerify() {
+
+
+        sparkSession.udf().register("calculateDifferentTimes", (UDF4<String, String, String, String, String>)
+                Lenovo::calculateDifferentTimes, DataTypes.StringType);
+
+
+        List<Row> rows = sparkSession.read()
+                .format("com.databricks.spark.csv")
+                .option("header", "true")
+                .load(this.getClass().getClassLoader().getResource("reports/demo.csv").getPath())
+                .collectAsList();
+
+        rows.forEach(row -> System.out.print("'< %" + row.getString(0) + "',"));
+        System.out.println(" ");
+        rows.forEach(row -> System.out.print(row.getString(1) + ","));
+
+    }
+
+    private static String calculateDifferentTimes(String Carry_In_Time, String Start_Repair_Time,
+                                                  String Finish_Repair_Time, String Customer_Pickup_Time) {
+
+        long waitToRepairHours = 0, repairHours = 0, pickUpHours = 0;
+
+        try {
+            if (StringUtils.isNotBlank(Start_Repair_Time) &&
+                    StringUtils.isNotBlank(Carry_In_Time)) {
+                waitToRepairHours = dateFormatter.parse(Start_Repair_Time).getTime() -
+                        dateFormatter.parse(Carry_In_Time).getTime();
+            }
+
+            if (StringUtils.isNotBlank(Finish_Repair_Time) &&
+                    StringUtils.isNotBlank(Start_Repair_Time)) {
+                repairHours = dateFormatter.parse(Finish_Repair_Time).getTime() -
+                        dateFormatter.parse(Start_Repair_Time).getTime();
+            }
+
+            if (StringUtils.isNotBlank(Customer_Pickup_Time) &&
+                    StringUtils.isNotBlank(Finish_Repair_Time)) {
+                pickUpHours = dateFormatter.parse(Customer_Pickup_Time).getTime() -
+                        dateFormatter.parse(Finish_Repair_Time).getTime();
+            }
+
+            return "'" + BigDecimal.valueOf(waitToRepairHours / 3600000)
+                    .setScale(3, RoundingMode.HALF_UP).doubleValue() +
+                    "'," + BigDecimal.valueOf(repairHours / 3600000)
+                    .setScale(3, RoundingMode.HALF_UP).doubleValue() + "'," +
+                    BigDecimal.valueOf(pickUpHours / 3600000)
+                            .setScale(3, RoundingMode.HALF_UP).doubleValue() + "'";
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+
+    static double computePerformance(String closeSOAmountStr,
+                                     String longTail15BDStr, String RTAT3BDStr, String RRR30CDStr,
+                                     String HVPStr) {
+
+        double closeSOAmount = Double.valueOf(closeSOAmountStr) / MAX_CLOSE_SO;
+        double longTail15BD = Double.valueOf(longTail15BDStr) / MAX_LONG_TAIL;
+        double RTAT3BD = Double.valueOf(RTAT3BDStr) / MAX_RTAT_3BD;
+        double RRR30CD = Double.valueOf(RRR30CDStr) / MAX_RRR_30BD;
+        double HVP = Double.valueOf(HVPStr) / MAX_HVP;
+
+        double actual = closeSOAmount + RTAT3BD + 4 - (longTail15BD + RRR30CD + HVP);
+
+
+        return BigDecimal.valueOf(100 * actual / 5)
+                .setScale(2, RoundingMode.HALF_UP).doubleValue();
     }
 }
 

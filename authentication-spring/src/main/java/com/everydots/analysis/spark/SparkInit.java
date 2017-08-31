@@ -16,8 +16,8 @@ import java.util.Arrays;
  */
 public class SparkInit {
 
-    public static final String INPUT_FILE = "sparkData.txt";
-    public static final String OUTPUT_FOLDER = "cost-analysis/spartOutputFolder";
+    static final String INPUT_FILE = "sparkData.txt";
+    static final String OUTPUT_FOLDER = "cost-analysis/spartOutputFolder";
 
     public static void main(String[] args) {
 
@@ -33,7 +33,7 @@ public class SparkInit {
         JavaRDD<String> words = input.flatMap((FlatMapFunction<String, String>) s -> Arrays.asList(s.split(" ")).iterator());
 
         JavaPairRDD<String, Integer> counts = words
-                .mapToPair((PairFunction<String, String, Integer>) s -> new Tuple2<>(s, 1))
+                .mapToPair((PairFunction<String, String, Integer>) s -> new Tuple2<String, Integer>(s, 1))
                 .reduceByKey((Function2<Integer, Integer, Integer>) (integer, integer2) -> integer + integer2);
 
         counts.saveAsTextFile(OUTPUT_FOLDER);
