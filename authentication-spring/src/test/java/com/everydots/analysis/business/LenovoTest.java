@@ -5,8 +5,11 @@ import org.apache.spark.api.java.function.ForeachFunction;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
+import org.joda.time.DateTime;
 import org.junit.Test;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 /**
@@ -29,7 +32,15 @@ public class LenovoTest {
     public void stationPerformance() throws Exception {
 
         //lenovo.rankStations();
-        lenovo.rankStationsVerify();
+        //lenovo.rankStationsVerify();
+
+        DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS");
+        String dateFormatted = formatter.format(1496664600);
+        System.out.println(dateFormatted);
+
+
+        long end = DateTime.parse("1970-01-19 00:00:00").getMillis();
+
     }
 
     @Test
@@ -72,7 +83,7 @@ public class LenovoTest {
     @Test
     public void name() throws Exception {
 
-        double result = Lenovo.computePerformance("383", "1.15", "45.0", "10.81", "41.67");
+        double result = Lenovo.computePerformance("333", "383", "1.15", "45.0", "10.81", "41.67");
 
         System.out.printf(result + "");
 

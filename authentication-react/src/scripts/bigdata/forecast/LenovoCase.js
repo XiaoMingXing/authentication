@@ -54,6 +54,7 @@ class LenovoCase extends Component {
         this.style = {
             width: 800
         };
+
         this.radarStyle = {
             width: 800
         }
@@ -87,11 +88,9 @@ class LenovoCase extends Component {
             <div className="doughnutChart" style={this.radarStyle}>
                 <canvas id="doughnutChart"/>
             </div>
-
             <div className="partsKPIChart" style={this.radarStyle}>
                 <canvas id="partsKPIChart"/>
             </div>
-
             <div className="stackBarChart" style={this.radarStyle}>
                 <canvas id="stackBarChart"/>
             </div>
@@ -320,7 +319,7 @@ class LenovoCase extends Component {
                     fillColor: "rgb(245, 243, 180,0.6)",
                     borderColor: "rgba(234,234,149,1)",
                     data: [83, 95, 96, 88, 71]
-                }, {
+                }/*, {
                     label: "Ambe Electronics-SCS",
                     backgroundColor: "rgba(255,99,132,0.2)",
                     fillColor: "rgba(255,99,132,1)",
@@ -330,7 +329,7 @@ class LenovoCase extends Component {
                     fillColor: "rgba(179,181,198,0.2)",
                     borderColor: "rgba(255, 206, 86, 1)",
                     data: [13, 67, 77, 5, 43]
-                }]
+                }*/]
             },
             options: {
                 scale: {

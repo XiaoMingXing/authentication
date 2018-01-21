@@ -9,7 +9,7 @@ import org.apache.spark.sql.SparkSession;
 import org.apache.spark.sql.api.java.UDF2;
 import org.apache.spark.sql.api.java.UDF3;
 import org.apache.spark.sql.api.java.UDF4;
-import org.apache.spark.sql.api.java.UDF5;
+import org.apache.spark.sql.api.java.UDF6;
 import org.apache.spark.sql.types.DataTypes;
 import org.joda.time.DateTime;
 
@@ -36,7 +36,7 @@ class Lenovo implements Serializable {
 
     public List<Row> rows;
 
-    static double MAX_CLOSE_SO = 486;
+    static double MAX_OPEN_CLOSE_SO = 4;  // openSOAmount / closeSOAmount
     static double MAX_LONG_TAIL = 11.6;
     static double MAX_RTAT_3BD = 100;
     static double MAX_RRR_30BD = 46.91;
@@ -135,7 +135,6 @@ class Lenovo implements Serializable {
                 .save("data_pre_process4");
     }
 
-
     void preProcess2() {
 
         sparkSession.udf().register("computeHVPNumber", (UDF3<String, String, String, Integer>)
@@ -226,15 +225,15 @@ class Lenovo implements Serializable {
     void rankStations() {
 
         sparkSession.udf().register("computePerformance",
-                (UDF5<String, String, String, String, String, Double>)
+                (UDF6<String, String, String, String, String, String, Double>)
                         Lenovo::computePerformance, DataTypes.DoubleType);
 
         sparkSession.read()
                 .format("com.databricks.spark.csv")
                 .option("header", "true")
-                .load(this.getClass().getClassLoader().getResource("reports/Station_KPI.csv").getPath())
+                .load(this.getClass().getClassLoader().getResource("reports/engineer_performance.csv").getPath())
                 .withColumn("performance", callUDF("computePerformance"
-                        , col("closeSOAmount"), col("longTail15BD"), col("RTAT3BD"), col("RRR").as("RRR30CD")
+                        , col("openSOAmount"), col("closeSOAmount"), col("longTail15BD"), col("RTAT3BD"), col("RRR").as("RRR30CD")
                         , col("HVP")))
                 .write()
                 .format("com.databricks.spark.csv")
@@ -246,14 +245,14 @@ class Lenovo implements Serializable {
     void computeValue() {
 
         sparkSession.udf().register("computePerformance",
-                (UDF5<String, String, String, String, String, Double>)
+                (UDF6<String, String, String, String, String, String, Double>)
                         Lenovo::computePerformance, DataTypes.DoubleType);
 
         sparkSession.read()
                 .format("com.databricks.spark.csv")
                 .option("header", "true")
                 .load(this.getClass().getClassLoader().getResource("reports/Station_KPI.csv").getPath())
-                .withColumn("performance", callUDF("computePerformance",col("closeSOAmount")
+                .withColumn("performance", callUDF("computePerformance", col("closeSOAmount")
                         , col("closeSOAmount"), col("longTail15BD"), col("RTAT3BD"), col("RRR").as("RRR30CD")
                         , col("HVP")))
                 .write()
@@ -319,17 +318,18 @@ class Lenovo implements Serializable {
     }
 
 
-    static double computePerformance(String closeSOAmountStr,
+    static double computePerformance(String openSOAmountStr, String closeSOAmountStr,
                                      String longTail15BDStr, String RTAT3BDStr, String RRR30CDStr,
                                      String HVPStr) {
 
-        double closeSOAmount = Double.valueOf(closeSOAmountStr) / MAX_CLOSE_SO;
+        double openDivideClose = Double.valueOf(openSOAmountStr) / Double.valueOf(closeSOAmountStr);
+        double openAndClose = openDivideClose / MAX_OPEN_CLOSE_SO;
         double longTail15BD = Double.valueOf(longTail15BDStr) / MAX_LONG_TAIL;
         double RTAT3BD = Double.valueOf(RTAT3BDStr) / MAX_RTAT_3BD;
         double RRR30CD = Double.valueOf(RRR30CDStr) / MAX_RRR_30BD;
         double HVP = Double.valueOf(HVPStr) / MAX_HVP;
 
-        double actual = closeSOAmount + RTAT3BD + 4 - (longTail15BD + RRR30CD + HVP);
+        double actual = openAndClose + RTAT3BD + 3 - (longTail15BD + RRR30CD + HVP);
 
 
         return BigDecimal.valueOf(100 * actual / 5)
