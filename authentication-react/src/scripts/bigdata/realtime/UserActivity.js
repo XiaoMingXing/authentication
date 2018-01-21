@@ -3,72 +3,161 @@ import axios from "axios";
 
 class UserActivity extends Component {
 
-    constructor() {
-        super();
+    KAFKA_REST = "http://localhost:8082/";
+    CONSUMER_NAME = "my_json_consumer";
+    CONSUMER_INSTANCE_NAME = "my_consumer_instance";
+    TOPICS = ["topic-test2"];
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            topics: [],
+            message: JSON.stringify({
+                "records": [{
+                    "value": {
+                        "level1": "result",
+                        "level2": {"foo": "bar"}
+                    }
+                }]
+            }),
+            infoMsg: '',
+            consumedMessage: []
+        };
         axios.defaults.headers.post['Content-Type'] = "application/vnd.kafka.json.v2+json";
         axios.defaults.headers.post['Accept'] = "application/vnd.kafka.v2+json";
-        axios.defaults.headers.get['Accept'] = "application/vnd.kafka.json.v2+json";
+
+        this.checkKafkaTopics = this.checkKafkaTopics.bind(this);
+        this.initKafka = this.initKafka.bind(this);
+        this.ProduceMessage = this.ProduceMessage.bind(this);
+        this.ConsumeMessage = this.ConsumeMessage.bind(this);
     }
 
-    checkKafkaStatus() {
-        let kafka_rest = "http://localhost:8082/";
+
+    checkKafkaTopics() {
+        let _this = this;
         axios
-            .get(kafka_rest + "topics")
-            .then(result => console.log(result))
+            .get(this.KAFKA_REST + "topics")
+            .then(result => {
+                if (result.status !== 200) {
+                    this.errorMessage = "Kafka connection error!";
+                    return
+                }
+                _this.setState({topics: result.data});
+            })
     }
 
     initKafka() {
-        let kafka_rest = "http://localhost:8082/";
-        let consumerName = "my_json_consumer";
-        let consumerInstanceName = "my_consumer_instance";
-        axios.post(kafka_rest + "consumers/" + consumerName, JSON.stringify({
-            "name": consumerInstanceName,
+
+        let _this = this;
+
+        axios.post(this.KAFKA_REST + "consumers/" + this.CONSUMER_NAME, JSON.stringify({
+            "name": this.CONSUMER_INSTANCE_NAME,
             "format": "json",
             "auto.offset.reset": "latest"
-        })).then(result => console.log(result));
-
-        axios.post(kafka_rest + "consumers/" + consumerName + "/instances/" + consumerInstanceName + "/subscription",
-            JSON.stringify({"topics": ["topic-test2"]}))
-            .then(result => console.log(result))
+        })).then(result => {
+            if (result.status !== 200) {
+                return
+            }
+            axios.post(result.data.base_uri + "/subscription",
+                JSON.stringify({"topics": this.TOPICS}))
+                .then(result => {
+                    _this.setState({infoMsg: "success"});
+                    console.log(result);
+                })
+        });
     }
 
     ProduceMessage() {
-        let kafka_rest = "http://localhost:8082/";
-        axios.post(kafka_rest + "topics/topic-test2", JSON.stringify({
-            "records": [{
-                "value": {
-                    "level1": "result",
-                    "level2": {"foo": "bar"}
-                }
-            }]
-        })).then(result => console.log(result))
-    }
-
-
-    ConsumeMessage() {
-        let kafka_rest = "http://localhost:8082/";
-        let consumerName = "my_json_consumer";
-        let consumerInstanceName = "my_consumer_instance";
-        axios
-            .get(kafka_rest + "consumers/" + consumerName + "/instances/" + consumerInstanceName + "/records")
+        if (!JSON.parse(this.state.message)) {
+            console.log("JSON format error");
+            return
+        }
+        let message = JSON.parse(this.state.message);
+        axios.post(this.KAFKA_REST + "topics/" + this.TOPICS, JSON.stringify(message))
             .then(result => console.log(result))
     }
 
-    static onSuccess(result) {
-        console.log("SUCCESS!");
+    ConsumeMessage() {
+        let _this = this;
+        let headerConfig = {
+            headers: {
+                "Accept": "application/vnd.kafka.json.v2+json"
+            }
+        };
+        axios
+            .get(this.KAFKA_REST + "consumers/" + this.CONSUMER_NAME + "/instances/" +
+                this.CONSUMER_INSTANCE_NAME + "/records", headerConfig)
+            .then(result => _this.setState({consumedMessage: result.data}))
+    }
+
+    topicList = function (topics) {
+        if (!topics || !topics.length) return;
+        const listTopics = topics.map((topic) =>
+            <li>{topic}</li>
+        );
+        return (
+            <ul>{listTopics}</ul>
+        );
+    };
+
+    handleChange(e) {
+        this.setState({message: e.target.value});
     }
 
     render() {
+
+        let topics = this.state.topics.map((topic) => {
+            return (<li>{topic}</li>)
+        });
+
+        let textAreaStyle = {
+            marginLeft: "0",
+            marginRight: "0"
+        };
+
         return (<div>
             <div className="panel panel-default">
                 <div className="panel-heading">
                     <h3 className="panel-title">User Activity Analysis</h3>
                 </div>
-                <div className="panel-body">
-                    <button className="data_btn" onClick={this.checkKafkaStatus}>Check Kafka Status</button>
-                    <button className="data_btn" onClick={this.initKafka}>Init Kafka</button>
-                    <button className="data_btn" onClick={this.ProduceMessage}>Generate User Data</button>
-                    <button className="data_btn" onClick={this.ConsumeMessage}>ConsumeMessage</button>
+                {this.state.infoMsg}
+                <div className="panel-body text-left">
+                    <div className="form-group row">
+                        <label className="initKafkaButton">Init Kafka: </label>
+                        <button type="button" className="btn btn-info" onClick={() => this.initKafka()}>Init Kafka
+                        </button>
+                    </div>
+                    <div className="form-group row">
+                        <label className="topicCheckButton">Check Topics: </label>
+                        <button type="button" className="btn btn-primary" onClick={() => this.checkKafkaTopics()}>Check
+                            Kafka Topics
+                        </button>
+                        <ul>{topics}</ul>
+                    </div>
+                    <div className="form-group">
+                        <div className="row" style={textAreaStyle}>
+                            <label className="sendMessageButton">Send messages: </label>
+                            <textarea className="form-control" id="messagesToSend" rows="10"
+                                      onChange={this.handleChange.bind(this)}
+                                      value={this.state.message} placeholder="Write message here..."/>
+                        </div>
+                        <div className="row">
+                            <button type="button" className="btn btn-info" onClick={() => this.ProduceMessage()}>Send
+                                Messages
+                            </button>
+                        </div>
+
+                    </div>
+
+                    <div className="form-group row">
+                        <label className="consumeMessageButton">Consume messages: </label>
+                        <button type="button" className="btn btn-info" onClick={() => this.ConsumeMessage()}>
+                            ConsumeMessage
+                        </button>
+                        <div>
+                            {JSON.stringify(this.state.consumedMessage)}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>);

@@ -29,7 +29,6 @@ class SupplyChainForecast extends Component {
     }
 
     formatItems(items) {
-        debugger;
         var yhat_lower_results = [];
         if (typeof items === 'object' && items['yhat_lower']) {
             for (var index in items['yhat_lower']) {
