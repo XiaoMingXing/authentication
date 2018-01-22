@@ -8,7 +8,7 @@ injectGlobal`
   html {
     font-family: 'Roboto', sans-serif;
   }
-`
+`;
 
 const Container = styled.main`
   align-items: center;
@@ -19,7 +19,7 @@ const Container = styled.main`
   justify-content: center;
   min-height: 100vh;
   padding: 1em;
-`
+`;
 
 export default ({children, theme}) => (
     <ThemeProvider theme={theme}>

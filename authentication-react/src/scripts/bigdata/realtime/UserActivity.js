@@ -16,8 +16,9 @@ class UserActivity extends Component {
             message: JSON.stringify({
                 "records": [{
                     "value": {
-                        "level1": "result",
-                        "level2": {"foo": "bar"}
+                        "user": "customer1",
+                        "agent": navigator.userAgent,
+                        "action": {"type": "click", "code": "008"}
                     }
                 }]
             }),
