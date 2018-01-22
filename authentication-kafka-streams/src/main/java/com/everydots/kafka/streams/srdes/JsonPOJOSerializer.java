@@ -1,4 +1,4 @@
-package com.everydots.srdes;
+package com.everydots.kafka.streams.srdes;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more
