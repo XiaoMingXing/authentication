@@ -15,3 +15,9 @@ _test-output
 _temp
 *.iml
 **/*.csv
+target
+
+#For authentication-dashboard module
+.next
+
+

@@ -11,6 +11,7 @@
     <modules>
         <module>authentication-spring</module>
         <module>authentication-openstack</module>
+        <module>authentication-streams</module>
     </modules>
 
     <!-- 依赖项定义 -->

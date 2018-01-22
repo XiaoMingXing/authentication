@@ -7,6 +7,7 @@ class UserActivity extends Component {
     CONSUMER_NAME = "my_json_consumer";
     CONSUMER_INSTANCE_NAME = "my_consumer_instance";
     TOPICS = ["topic-test2"];
+    TOPICS1 = ["streams-pipe-output"];
 
     constructor(props) {
         super(props);
@@ -21,7 +22,11 @@ class UserActivity extends Component {
                 }]
             }),
             infoMsg: '',
-            consumedMessage: []
+            consumedMessage: [],
+            config: {
+                broker_url: "http://localhost:8082",
+                topic: "topic-test2"
+            }
         };
         axios.defaults.headers.post['Content-Type'] = "application/vnd.kafka.json.v2+json";
         axios.defaults.headers.post['Accept'] = "application/vnd.kafka.v2+json";
@@ -148,7 +153,6 @@ class UserActivity extends Component {
                         </div>
 
                     </div>
-
                     <div className="form-group row">
                         <label className="consumeMessageButton">Consume messages: </label>
                         <button type="button" className="btn btn-info" onClick={() => this.ConsumeMessage()}>
