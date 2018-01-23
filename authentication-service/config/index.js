@@ -2,7 +2,7 @@ var config = {
     local: {
         mode: 'local',
         port: 9001,
-        db: 'mongodb://127.0.0.1:27017/test',
+        db: 'mongodb://localhost:27017/local',
         dbOptions: {
             db: {native_parser: true},
             server: {poolSize: 5}

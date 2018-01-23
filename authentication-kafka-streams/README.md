@@ -33,3 +33,9 @@ bin/kafka-console-consumer --bootstrap-server 184.73.79.82:9092 --topic sink-top
 ```sbtshell
 bin/kafka-rest-start etc/kafka-rest/kafka-rest.properties
 ```
+
+### use below commands to run kafka mongoDb connector
+
+```sbtshell
+$CONFLUENT_HOME/bin/connect-standalone config/worker.properties config/connect.properties
+```

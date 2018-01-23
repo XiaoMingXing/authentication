@@ -1,7 +1,7 @@
-var users = require('../models/user');
-var UsernameOrPasswordInvalidError = require('../errors').UsernameOrPasswordInvalidError;
-var UserNotExistError = require('../errors').UserNotExistError;
-var bcrypt = require('bcrypt');
+let users = require('../models/user');
+let UsernameOrPasswordInvalidError = require('../errors').UsernameOrPasswordInvalidError;
+let UserNotExistError = require('../errors').UserNotExistError;
+let bcrypt = require('bcrypt');
 
 function usernameAndPasswordAuth(user, callback) {
     users.findOne({email: user.email}, function (err, existUser) {
