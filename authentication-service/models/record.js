@@ -5,7 +5,7 @@ let Schema = mongoose.Schema;
 // can only define parts of fields
 let recordSchema = new Schema({
     userId: String
-}, {collection: 'user_activities'});
+}, {collection: 'actitivies'});
 
 let Record = mongoose.model('Record', recordSchema);
 

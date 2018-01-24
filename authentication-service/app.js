@@ -1,7 +1,7 @@
-let express = require('express');
 let path = require('path');
+let express = require('express');
 let favicon = require('serve-favicon');
-let http = require('http');
+
 let logger = require('morgan');
 let cookieParser = require('cookie-parser');
 let bodyParser = require('body-parser');
@@ -13,13 +13,25 @@ let users = require('./routes/users');
 let dashboard = require('./routes/dashboard');
 
 let app = express();
-app.set('port', process.env.PORT || 8080);
-
 //cros
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
     next();
+});
+let http = require('http').Server(app);
+let io = require('socket.io')(http);
+
+io.on('connection', function (socket) {
+    console.log("websocket connected from client");
+    require('./services/dashboardService')
+        .totalPv(function (err, doc) {
+            socket.emit('news', doc);
+        })
+});
+
+http.listen(8080, function (err, res) {
+    console.log('Express server listening on port ' + 8080);
 });
 
 app.set('views', path.join(__dirname, 'views'));
@@ -38,10 +50,6 @@ app.use(API_PREFIX + '/dashboard', index);
 app.use(API_PREFIX + '/auth', auth);
 app.use(API_PREFIX + '/users', users);
 app.use(API_PREFIX + '/app', dashboard);
-
-http.createServer(app).listen(8080, function () {
-    console.log('Express server listening on port ' + 8080);
-});
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
