@@ -15,8 +15,9 @@ export default class PagePV extends Component {
     }
 
     componentDidMount() {
-        this.socket.on("news", function (doc) {
-            console.log("MESSAGES", doc);
+        let _this = this;
+        this.socket.on("newDataComes", function (data) {
+            _this.setState({totalPV: data});
         })
     }
 

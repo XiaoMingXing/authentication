@@ -7,10 +7,11 @@ let dashboardService = require('../services/dashboardService');
 /* GET users listing. */
 router.get('/totalPv', function (req, res, next) {
     dashboardService.totalPv(function (err, user) {
+        console.log("ARGUMENTS:", arguments);
         if (err) {
             return next(err);
         }
-        res.json(user);
+        res.json({total: dashboardService.docSize(), latest: user});
     })
 });
 

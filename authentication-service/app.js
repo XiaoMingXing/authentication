@@ -24,10 +24,11 @@ let io = require('socket.io')(http);
 
 io.on('connection', function (socket) {
     console.log("websocket connected from client");
-    require('./services/dashboardService')
-        .totalPv(function (err, doc) {
-            socket.emit('news', doc);
-        })
+    let dashboardService = require('./services/dashboardService');
+    dashboardService.totalPv(function (result) {
+        socket.emit('newDataComes', result);
+    })
+
 });
 
 http.listen(8080, function (err, res) {
