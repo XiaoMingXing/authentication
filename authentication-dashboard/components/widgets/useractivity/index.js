@@ -1,14 +1,19 @@
 import {Component} from 'react'
 import Widget from '../../widget'
+import CircleProgress from '../../circle-progress'
 import io from "socket.io-client"
 
 
 export default class PagePV extends Component {
 
+    static defaultProps = {
+        title: 'Page Visit'
+    };
+
     constructor(props) {
         super(props);
         this.state = {
-            totalPV: 60
+            totalPV: 0
         };
         let BACKEND_URL = "http://localhost:8080";
         this.socket = io(BACKEND_URL);
@@ -26,11 +31,11 @@ export default class PagePV extends Component {
     }
 
     render() {
-        const {error, loading} = this.state;
-        const {title} = this.props.title;
+        const {error, loading, totalPV} = this.state;
+        const {title} = this.props;
         return (
             <Widget title={title} loading={loading} error={error}>
-                Count: <strong>{this.state.totalPV}</strong>
+                <CircleProgress value={totalPV}/>
             </Widget>
         )
     }
